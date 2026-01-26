@@ -1,13 +1,22 @@
 class BerlinClockEngine {
     
-    func secondsToLamp(seconds: UInt) throws -> LampState {
+    func convertHoursMinutesAndSecondsToLamp(hours: UInt, minutes: UInt, seconds: UInt) throws -> (secondsLamp: LampState, fiveHourLamp: [LampState], oneHourLamp: [LampState], fiveMinutesLamp: [LampState], oneMinuteLamp: [LampState]) {
+        let secondsLamp = try secondsToLamp(seconds: seconds)
+        let fiveHourLamp = try fiveHoursToLamp(hours: hours)
+        let oneHourLamp = try oneHourToLamp(hours: hours)
+        let fiveMinutesLamp = try fiveMinutesToLamp(minutes: minutes)
+        let oneMinuteLamp = try oneMinuteToLamp(minutes: minutes)
+        return (secondsLamp, fiveHourLamp, oneHourLamp, fiveMinutesLamp, oneMinuteLamp)
+    }
+    
+    private func secondsToLamp(seconds: UInt) throws -> LampState {
         guard (0...59).contains(seconds) else {
             throw TimeValidationError.invalidSeconds(seconds)
         }
         return seconds % 2 == 0 ? .red : .off
     }
     
-    func fiveHoursToLamp(hours: UInt) throws -> [LampState] {
+    private func fiveHoursToLamp(hours: UInt) throws -> [LampState] {
         guard (0...23).contains(hours) else {
             throw TimeValidationError.invalidHours(hours)
         }
@@ -15,7 +24,7 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .red : .off }
     }
     
-    func oneHourToLamp(hours: UInt) throws -> [LampState] {
+    private func oneHourToLamp(hours: UInt) throws -> [LampState] {
         guard (0...23).contains(hours) else {
             throw TimeValidationError.invalidHours(hours)
         }
@@ -23,7 +32,7 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .red : .off }
     }
     
-    func fiveMinutesToLamp(minutes: UInt) throws -> [LampState] {
+    private func fiveMinutesToLamp(minutes: UInt) throws -> [LampState] {
         guard (0...59).contains(minutes) else {
             throw TimeValidationError.invalidMinutes(minutes)
         }
@@ -36,7 +45,7 @@ class BerlinClockEngine {
         }
     }
     
-    func oneMinuteToLamp(minutes: UInt) throws -> [LampState] {
+    private func oneMinuteToLamp(minutes: UInt) throws -> [LampState] {
         guard (0...59).contains(minutes) else {
             throw TimeValidationError.invalidMinutes(minutes)
         }
