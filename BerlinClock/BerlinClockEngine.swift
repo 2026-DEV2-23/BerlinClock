@@ -25,7 +25,7 @@ class BerlinClockEngine {
     
     func fiveMinutesToLamp(minutes: UInt) -> [LampState] {
         switch minutes {
-        case 5, 6:
+        case 5, 6, 7, 8, 9:
             return [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         case 10:
             return [.yellow, .yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off]

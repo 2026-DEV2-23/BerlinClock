@@ -81,7 +81,7 @@ struct BerlinClockEngineTests {
         }
     }
     
-    @Test("five minutes lamp test when minutes = 5, 6", arguments: [5, 6])
+    @Test("five minutes lamp test when minutes = 5, 6, 7, 8, 9", arguments: [5, 6, 7, 8, 9])
     func fiveMinutesLamp_whenMinutes_IsEqual_5(minutes: UInt) {
         let original = engine.fiveMinutesToLamp(minutes: minutes)
         let expected: [LampState] = [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
