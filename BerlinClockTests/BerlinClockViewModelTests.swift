@@ -34,12 +34,12 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error == nil)
-        #expect(viewModel.berlinClockLamp.secondsLamp == .red)
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .off, .off, .off])
-        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off])
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off])
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .off])
+        #expect(viewModel.error == nil, "Failed at error")
+        #expect(viewModel.berlinClockLamp.secondsLamp == .red, "Failed at secondsLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .off, .off, .off], "Failed at fiveHoursLamp")
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off], "Failed at oneHourLamp")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off], "Failed at fiveMinutesLamp")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .off], "Failed at oneMinuteLamp")
     }
     
     @Test("afternoon time test")
@@ -50,12 +50,12 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error == nil)
-        #expect(viewModel.berlinClockLamp.secondsLamp == .off)
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off])
-        #expect(viewModel.berlinClockLamp.oneHourLamp == [.off, .off, .off, .off])
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off])
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .off, .off])
+        #expect(viewModel.error == nil, "Failed at error")
+        #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off], "Failed at fiveHoursLamp")
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.off, .off, .off, .off], "Failed at oneHourLamp")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off], "Failed at fiveMinutesLamp")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .off, .off], "Failed at oneMinuteLamp")
     }
     
     @Test("evening time test")
@@ -66,12 +66,12 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error == nil)
-        #expect(viewModel.berlinClockLamp.secondsLamp == .off)
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off])
-        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .red])
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off])
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow])
+        #expect(viewModel.error == nil, "Failed at error")
+        #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off], "Failed at fiveHoursLamp")
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .red], "Failed at oneHourLamp")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off], "Failed at fiveMinutesLamp")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow], "Failed at oneMinuteLamp")
     }
     
     @Test("end of day test")
@@ -82,12 +82,12 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error == nil)
-        #expect(viewModel.berlinClockLamp.secondsLamp == .off)
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .red])
-        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off])
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow])
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow])
+        #expect(viewModel.error == nil, "Failed at error")
+        #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .red], "Failed at fiveHoursLamp")
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off], "Failed at oneHourLamp")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow], "Failed at fiveMinutesLamp")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow], "Failed at oneMinuteLamp")
     }
     
     @Test("throw an invalidHours error when viewmodel updateBerlinClockLamp is called")
@@ -97,8 +97,8 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error != nil)
-        #expect(viewModel.error as? TimeValidationError == .invalidHours(61))
+        #expect(viewModel.error != nil, "Failed at error")
+        #expect(viewModel.error as? TimeValidationError == .invalidHours(61), "Failed at invalidHours")
     }
     
     @Test("throw an invalidMinutes error when viewmodel updateBerlinClockLamp is called")
@@ -108,8 +108,8 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error != nil)
-        #expect(viewModel.error as? TimeValidationError == .invalidMinutes(100))
+        #expect(viewModel.error != nil, "Failed at error")
+        #expect(viewModel.error as? TimeValidationError == .invalidMinutes(100), "Failed at invalidMinutes")
     }
     
     @Test("throw an invalidSeconds error when viewmodel updateBerlinClockLamp is called")
@@ -119,8 +119,8 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
-        #expect(viewModel.error != nil)
-        #expect(viewModel.error as? TimeValidationError == .invalidSeconds(222))
+        #expect(viewModel.error != nil, "Failed at error")
+        #expect(viewModel.error as? TimeValidationError == .invalidSeconds(222), "Failed at invalidSeconds")
     }
 
 }
