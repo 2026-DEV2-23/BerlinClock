@@ -27,7 +27,7 @@ class BerlinClockEngine {
         switch minutes {
         case 5, 6, 7, 8, 9:
             return [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
-        case 10:
+        case 10, 11:
             return [.yellow, .yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         case 15:
             return [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off]
