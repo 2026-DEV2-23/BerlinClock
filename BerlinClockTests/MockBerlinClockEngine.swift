@@ -29,7 +29,14 @@ class MockBerlinClockEngine: BerlinClockEngineProtocol {
                 fiveMinutesLamp: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off],
                 oneMinuteLamp: [.yellow, .yellow, .yellow, .yellow]
             )
-            
+        case (23, 59, 59):
+            return BerlinClockLamp(
+                secondsLamp: .off,
+                fiveHoursLamp: [.red, .red, .red, .red],
+                oneHourLamp: [.red, .red, .red, .off],
+                fiveMinutesLamp: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow],
+                oneMinuteLamp: [.yellow, .yellow, .yellow, .yellow]
+            )
         default:
             return BerlinClockLamp.empty
         }
