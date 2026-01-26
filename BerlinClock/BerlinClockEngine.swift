@@ -31,6 +31,12 @@ class BerlinClockEngine {
             return [.yellow, .yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         case 15:
             return [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off]
+        case 20:
+            return [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off]
+        case 25:
+            return [.yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off, .off, .off, .off]
+        case 30:
+            return [.yellow, .yellow, .red, .yellow, .yellow, .red, .off, .off, .off, .off, .off]
         default:
             return [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         }
