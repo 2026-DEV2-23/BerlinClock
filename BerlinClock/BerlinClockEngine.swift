@@ -1,21 +1,21 @@
 class BerlinClockEngine {
     
-    func convertHoursMinutesAndSecondsToLamp(hours: UInt, minutes: UInt, seconds: UInt) throws -> BerlinClockLamp {
-        guard (0...23).contains(hours) else {
-            throw TimeValidationError.invalidHours(hours)
+    func convertHoursMinutesAndSecondsToLamp(time: DigitalTime) throws -> BerlinClockLamp {
+        guard (0...23).contains(time.hours) else {
+            throw TimeValidationError.invalidHours(time.hours)
         }
-        guard (0...59).contains(minutes) else {
-            throw TimeValidationError.invalidMinutes(minutes)
+        guard (0...59).contains(time.minutes) else {
+            throw TimeValidationError.invalidMinutes(time.minutes)
         }
-        guard (0...59).contains(seconds) else {
-            throw TimeValidationError.invalidSeconds(seconds)
+        guard (0...59).contains(time.seconds) else {
+            throw TimeValidationError.invalidSeconds(time.seconds)
         }
         
-        return BerlinClockLamp(secondsLamp: secondsToLamp(seconds: seconds),
-            fiveHoursLamp: fiveHoursToLamp(hours: hours),
-            oneHourLamp: oneHourToLamp(hours: hours),
-            fiveMinutesLamp: fiveMinutesToLamp(minutes: minutes),
-            oneMinuteLamp: oneMinuteToLamp(minutes: minutes)
+        return BerlinClockLamp(secondsLamp: secondsToLamp(seconds: time.seconds),
+                               fiveHoursLamp: fiveHoursToLamp(hours: time.hours),
+                               oneHourLamp: oneHourToLamp(hours: time.hours),
+                               fiveMinutesLamp: fiveMinutesToLamp(minutes: time.minutes),
+                               oneMinuteLamp: oneMinuteToLamp(minutes: time.minutes)
         )
     }
     
@@ -48,6 +48,12 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .yellow : .off }
     }
 
+}
+
+struct DigitalTime {
+    let hours: UInt
+    let minutes: UInt
+    let seconds: UInt
 }
 
 struct BerlinClockLamp {
