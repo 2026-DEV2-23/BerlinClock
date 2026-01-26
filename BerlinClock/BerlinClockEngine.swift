@@ -19,19 +19,8 @@ class BerlinClockEngine {
         guard (0...23).contains(hours) else {
             throw TimeValidationError.invalidHours(hours)
         }
-
-        switch hours {
-        case 1, 6, 11, 16, 21:
-            return [.on, .off, .off, .off]
-        case 2, 7, 12, 17, 22:
-            return [.on, .on, .off, .off]
-        case 3, 8, 13, 18, 23:
-            return [.on, .on, .on, .off]
-        case 4, 9, 14, 19:
-            return [.on, .on, .on, .on]
-        default:
-            return [.off, .off, .off, .off]
-        }
+        let lamps = hours % 5
+        return (0..<4).map { $0 < lamps ? .on : .off }
     }
 }
 
