@@ -8,7 +8,7 @@ struct BerlinClockEngineTests {
     @Test("Seconds lamp is on for even seconds", arguments: Array(stride(from: 0, to: 60, by: 2)))
     func secondsLampIsOnForEvenSeconds(seconds: UInt) {
         let original = try! engine.secondsToLamp(seconds: seconds)
-        #expect(original == .on, "Failed at seconds \(seconds)")
+        #expect(original == .red, "Failed at seconds \(seconds)")
     }
     
     @Test("Seconds lamp is off for odd seconds", arguments: Array(stride(from: 1, to: 60, by: 2)))
@@ -31,10 +31,10 @@ struct BerlinClockEngineTests {
     
     @Test("Five hours row lamp test", arguments: [
         ([0, 1, 2, 3, 4],      [LampState.off, LampState.off, LampState.off, LampState.off]),
-        ([5, 6, 7, 8, 9],      [LampState.on,  LampState.off, LampState.off, LampState.off]),
-        ([10, 11, 12, 13, 14], [LampState.on,  LampState.on,  LampState.off, LampState.off]),
-        ([15, 16, 17, 18, 19], [LampState.on,  LampState.on,  LampState.on,  LampState.off]),
-        ([20, 21, 22, 23],     [LampState.on,  LampState.on,  LampState.on,  LampState.on ])
+        ([5, 6, 7, 8, 9],      [LampState.red, LampState.off, LampState.off, LampState.off]),
+        ([10, 11, 12, 13, 14], [LampState.red, LampState.red, LampState.off, LampState.off]),
+        ([15, 16, 17, 18, 19], [LampState.red, LampState.red, LampState.red, LampState.off]),
+        ([20, 21, 22, 23],     [LampState.red, LampState.red, LampState.red, LampState.red ])
     ])
     func fiveHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {
@@ -57,10 +57,10 @@ struct BerlinClockEngineTests {
 
     @Test("one hour row lamp test", arguments:[
         ([0, 5, 10, 15, 20],  [LampState.off, LampState.off, LampState.off, LampState.off]),
-        ([1, 6, 11, 16, 21],  [LampState.on,  LampState.off, LampState.off, LampState.off]),
-        ([2, 7, 12, 17, 22],  [LampState.on,  LampState.on,  LampState.off, LampState.off]),
-        ([3, 8, 13, 18, 23],  [LampState.on,  LampState.on,  LampState.on,  LampState.off]),
-        ([4, 9, 14, 19],      [LampState.on,  LampState.on,  LampState.on,  LampState.on ])
+        ([1, 6, 11, 16, 21],  [LampState.red, LampState.off, LampState.off, LampState.off]),
+        ([2, 7, 12, 17, 22],  [LampState.red, LampState.red, LampState.off, LampState.off]),
+        ([3, 8, 13, 18, 23],  [LampState.red, LampState.red, LampState.red, LampState.off]),
+        ([4, 9, 14, 19],      [LampState.red, LampState.red, LampState.red, LampState.red ])
     ])
     func oneHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {

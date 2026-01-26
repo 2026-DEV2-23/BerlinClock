@@ -4,7 +4,7 @@ class BerlinClockEngine {
         guard (0...59).contains(seconds) else {
             throw TimeValidationError.invalidSeconds(seconds)
         }
-        return seconds % 2 == 0 ? .on : .off
+        return seconds % 2 == 0 ? .red : .off
     }
     
     func fiveHoursToLamp(hours: UInt) throws -> [LampState] {
@@ -12,7 +12,7 @@ class BerlinClockEngine {
             throw TimeValidationError.invalidHours(hours)
         }
         let lamps = hours / 5
-        return (0..<4).map { $0 < lamps ? .on : .off }
+        return (0..<4).map { $0 < lamps ? .red : .off }
     }
     
     func oneHourToLamp(hours: UInt) throws -> [LampState] {
@@ -20,7 +20,7 @@ class BerlinClockEngine {
             throw TimeValidationError.invalidHours(hours)
         }
         let lamps = hours % 5
-        return (0..<4).map { $0 < lamps ? .on : .off }
+        return (0..<4).map { $0 < lamps ? .red : .off }
     }
     
     func fiveMinutesToLamp(minutes: UInt) -> [LampState] {
@@ -49,14 +49,14 @@ enum TimeValidationError: Error, Equatable {
 
 enum LampState: Equatable, Sendable {
     case off
-    case on
+    case red
     case yellow
     
     // Manually implementing the comparison to strip away actor isolation
     nonisolated static func == (lhs: LampState, rhs: LampState) -> Bool {
         switch (lhs, rhs) {
         case (.off, .off),
-            (.on, .on),
+            (.red, .red),
             (.yellow, .yellow):
             return true
         default:
