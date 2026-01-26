@@ -9,7 +9,7 @@ class BerlinClockEngine {
     
     func fiveHoursToLamp(hours: UInt) -> [LampState] {
         switch hours {
-        case 5:
+        case 5, 6, 7, 8, 9:
             return [.on, .off, .off, .off]
         case 10:
             return [.on, .on, .off, .off]
