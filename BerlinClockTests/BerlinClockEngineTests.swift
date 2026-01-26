@@ -43,17 +43,15 @@ struct BerlinClockEngineTests {
         #expect(original == expected, "Failed at hours \(hours)")
     }
     
-    @Test("Five hours lamp test when hour = 15")
-    func fiveHoursLamp_whenHours_IsEqual_15() {
-        let hours: UInt = 15
+    @Test("Five hours lamp test when hour = 15, 16, 17, 18, 19", arguments: [15, 16, 17, 18, 19])
+    func fiveHoursLamp_whenHours_IsEqual_15(hours: UInt) {
         let original = engine.fiveHoursToLamp(hours: hours)
         let expected: [LampState] = [.on, .on, .on, .off]
         #expect(original == expected, "Failed at hours \(hours)")
     }
     
-    @Test("Five hours lamp test when hour = 20")
-    func fiveHoursLamp_whenHours_IsEqual_20() {
-        let hours: UInt = 20
+    @Test("Five hours lamp test when hour = 20, 21, 22, 23", arguments: [20, 21, 22, 23])
+    func fiveHoursLamp_whenHours_IsEqual_20(hours: UInt) {
         let original = engine.fiveHoursToLamp(hours: hours)
         let expected: [LampState] = [.on, .on, .on, .on]
         #expect(original == expected, "Failed at hours \(hours)")
