@@ -44,7 +44,7 @@ class BerlinClockEngine {
             return [.yellow, .yellow, .off, .off]
         case 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58:
             return [.yellow, .yellow, .yellow, .off]
-        case 4:
+        case 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59:
             return [.yellow, .yellow, .yellow, .yellow]
         default:
             return [.off, .off, .off, .off]
