@@ -1,8 +1,8 @@
 import Testing
 @testable import BerlinClock
 
-@Suite("Berlin Clock Tests")
-struct BerlinClockTests {
+@Suite("Berlin Clock Engine Tests")
+struct BerlinClockEngineTests {
     let engine = BerlinClockEngine()
     
     @Test("Seconds lamp is on for even seconds")
