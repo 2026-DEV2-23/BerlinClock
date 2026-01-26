@@ -5,6 +5,7 @@ class BerlinClockViewModel {
     private(set) var berlinClockLamp: BerlinClockLamp = BerlinClockLamp.empty
     private let timeProviderProtocol: DigitalTimeProviderProtocol
     private let engineProtocol: BerlinClockEngineProtocol
+    private(set) var error: Error?
     
     init(timeProviderProtocol: DigitalTimeProviderProtocol, engineProtocol: BerlinClockEngineProtocol) {
         self.timeProviderProtocol = timeProviderProtocol
@@ -15,9 +16,9 @@ class BerlinClockViewModel {
         do {
             let time = try timeProviderProtocol.getDigitalTime()
             berlinClockLamp = engineProtocol.convertDigitalTimeToLamp(time: time)
+            error = nil
         } catch {
-            // handle the error later
-            print(error.localizedDescription)
+            self.error = error
         }
     }
 }

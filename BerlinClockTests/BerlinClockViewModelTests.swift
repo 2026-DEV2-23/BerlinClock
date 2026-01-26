@@ -14,6 +14,7 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
+        #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed in secondsLamp")
         #expect(viewModel.berlinClockLamp.fiveHoursLamp.allSatisfy { $0 == .off }, "Failed in fiveHoursLamp")
         #expect(viewModel.berlinClockLamp.fiveHoursLamp.count == 4, "Failed in fiveHoursLamp count")
@@ -33,6 +34,7 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
+        #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .red)
         #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .off, .off, .off])
         #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off])
@@ -48,6 +50,7 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
+        #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .off)
         #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off])
         #expect(viewModel.berlinClockLamp.oneHourLamp == [.off, .off, .off, .off])
@@ -63,6 +66,7 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
+        #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .off)
         #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off])
         #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .red])
@@ -78,10 +82,23 @@ struct BerlinClockViewModelTests {
         
         viewModel.updateBerlinClockLamp()
         
+        #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .off)
         #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .red])
         #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off])
         #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow])
         #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow])
     }
+    
+    @Test("throw an invalidHours error when viewmodel updateBerlinClockLamp is called")
+    func throwError_when_viewmodel_updateBerlinClockLamp_isCalled() {
+        let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidHours(61))
+        let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
+        
+        viewModel.updateBerlinClockLamp()
+        
+        #expect(viewModel.error != nil)
+        #expect(viewModel.error as? TimeValidationError == .invalidHours(61))
+    }
+
 }
