@@ -7,20 +7,20 @@ struct BerlinClockEngineTests {
     
     @Test("Seconds lamp is on for even seconds", arguments: Array(stride(from: 0, to: 60, by: 2)))
     func secondsLampIsOnForEvenSeconds(seconds: UInt) {
-        let original = try! engine.secondsLamps(seconds: seconds)
+        let original = try! engine.secondsToLamp(seconds: seconds)
         #expect(original == .on, "Failed at seconds \(seconds)")
     }
     
     @Test("Seconds lamp is off for odd seconds", arguments: Array(stride(from: 1, to: 60, by: 2)))
     func secondsLampIsOffForEvenSeconds(seconds: UInt) {
-        let original = try! engine.secondsLamps(seconds: seconds)
+        let original = try! engine.secondsToLamp(seconds: seconds)
         #expect(original == .off, "Failed at seconds \(seconds)")
     }
     
     @Test("Seconds lamp should not be more than 59", arguments: [61, 72, 75, 100, 200, 333, 555, 1000])
-    func secondsLampShouldNotBeMoreThan59(seconds: UInt) {
+    func throwError_whenSeconds_greaterThan59(seconds: UInt) {
         #expect {
-            try engine.secondsLamps(seconds: seconds)
+            try engine.secondsToLamp(seconds: seconds)
         } throws: { error in
             guard let timeValidationError = error as? TimeValidationError else { return false }
             
@@ -44,7 +44,7 @@ struct BerlinClockEngineTests {
     }
     
     @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
-    func throwError_whenHoursLamp_greaterThan23(hours: UInt) {
+    func throwError_whenHours_greaterThan23(hours: UInt) {
         #expect {
             try engine.fiveHoursToLamp(hours: hours)
         } throws: { error in
