@@ -11,9 +11,8 @@ struct BerlinClockEngineTests {
         #expect(original == true, "Failed at seconds \(seconds)")
     }
     
-    @Test("Seconds lamp is off for odd seconds")
-    func secondsLampIsOffForEvenSeconds() {
-        let seconds = 21
+    @Test("Seconds lamp is off for odd seconds", arguments: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59])
+    func secondsLampIsOffForEvenSeconds(seconds: Int) {
         let original = engine.isSecondsLampOn(seconds: seconds)
         #expect(original == false, "Failed at seconds \(seconds)")
     }
