@@ -146,9 +146,8 @@ struct BerlinClockEngineTests {
         #expect(original == expected, "Failed at minute \(minutes)")
     }
     
-    @Test("One min lamp test when minute = 2")
-    func oneMinuteLamp_whenMinutes_IsEqual_2() {
-        let minutes: UInt = 2
+    @Test("One min lamp test when minute = 2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57", arguments: [2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57])
+    func oneMinuteLamp_whenMinutes_IsEqual_2_7_12_17_22_27_32_37_42_47_52_57(minutes: UInt) {
         let original = engine.oneMinuteToLamp(minutes: minutes)
         let expected: [LampState] = [.yellow, .yellow, .off, .off]
         #expect(original == expected, "Failed at minute \(minutes)")
