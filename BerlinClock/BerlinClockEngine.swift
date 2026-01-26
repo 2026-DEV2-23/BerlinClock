@@ -38,7 +38,7 @@ class BerlinClockEngine {
     
     func oneMinuteToLamp(minutes: UInt) -> [LampState] {
         switch minutes {
-        case 1:
+        case 1, 6:
             return [.yellow, .off, .off, .off]
         case 2:
             return [.yellow, .yellow, .off, .off]
