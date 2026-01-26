@@ -13,6 +13,15 @@ class MockBerlinClockEngine: BerlinClockEngineProtocol {
                 fiveMinutesLamp: [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off],
                 oneMinuteLamp: [.yellow, .yellow, .yellow, .off]
             )
+        case (15, 37, 55):
+            return BerlinClockLamp(
+                secondsLamp: .off,
+                fiveHoursLamp: [.red, .red, .red, .off],
+                oneHourLamp: [.off, .off, .off, .off],
+                fiveMinutesLamp: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off],
+                oneMinuteLamp: [.yellow, .yellow, .off, .off]
+            )
+            
         default:
             return BerlinClockLamp.empty
         }

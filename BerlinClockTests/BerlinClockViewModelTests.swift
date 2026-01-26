@@ -39,4 +39,19 @@ struct BerlinClockViewModelTests {
         #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off])
         #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .off])
     }
+    
+    @Test("afternoon time test")
+    func afternoonTime() {
+        let mockTime = try! DigitalTime(hours: 15, minutes: 37, seconds: 55)
+        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
+        
+        viewModel.updateBerlinClockLamp()
+        
+        #expect(viewModel.berlinClockLamp.secondsLamp == .off)
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .red, .red, .off])
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.off, .off, .off, .off])
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off])
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .off, .off])
+    }
 }
