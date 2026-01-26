@@ -11,7 +11,7 @@ class BerlinClockEngine {
         switch hours {
         case 5, 6, 7, 8, 9:
             return [.on, .off, .off, .off]
-        case 10:
+        case 10, 11, 12, 13, 14:
             return [.on, .on, .off, .off]
         case 15:
             return [.on, .on, .on, .off]
