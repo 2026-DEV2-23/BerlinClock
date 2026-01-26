@@ -21,6 +21,6 @@ struct BerlinClockEngineTests {
     func secondsLampShouldNotBeMoreThan59(seconds: UInt) {
         let (isEven, error) = engine.isSecondsLampOn(seconds: seconds)
         #expect(isEven == nil)
-        #expect(error  == "Invalid seconds: \(seconds). Seconds should not be more than 59.")
+        #expect(error  == "Invalid seconds: \(seconds). Seconds must be between 0 and 59.", "Failed at seconds \(seconds)")
     }
 }
