@@ -40,18 +40,8 @@ class BerlinClockEngine {
         guard (0...59).contains(minutes) else {
             throw TimeValidationError.invalidMinutes(minutes)
         }
-        switch minutes {
-        case 1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56:
-            return [.yellow, .off, .off, .off]
-        case 2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57:
-            return [.yellow, .yellow, .off, .off]
-        case 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58:
-            return [.yellow, .yellow, .yellow, .off]
-        case 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59:
-            return [.yellow, .yellow, .yellow, .yellow]
-        default:
-            return [.off, .off, .off, .off]
-        }
+        let lamps = minutes % 5
+        return (0..<4).map { $0 < lamps ? .yellow : .off }
     }
 
 }
