@@ -13,6 +13,10 @@ class BerlinClockEngine {
             return [.on, .off, .off, .off]
         case 10:
             return [.on, .on, .off, .off]
+        case 15:
+            return [.on, .on, .on, .off]
+        case 20:
+            return [.on, .on, .on, .on]
         default:
             return [.off, .off, .off, .off]
         }
