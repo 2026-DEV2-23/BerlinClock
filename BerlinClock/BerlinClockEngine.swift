@@ -1,6 +1,6 @@
 class BerlinClockEngine {
     
-    func isSecondsLampOn(seconds: Int) -> Bool {
+    func isSecondsLampOn(seconds: UInt) -> Bool {
         seconds % 2 == 0
     }
     
