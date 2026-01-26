@@ -111,5 +111,16 @@ struct BerlinClockViewModelTests {
         #expect(viewModel.error != nil)
         #expect(viewModel.error as? TimeValidationError == .invalidMinutes(100))
     }
+    
+    @Test("throw an invalidSeconds error when viewmodel updateBerlinClockLamp is called")
+    func throwError_invalidSeconds_when_viewmodel_updateBerlinClockLamp_isCalled() {
+        let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidSeconds(222))
+        let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
+        
+        viewModel.updateBerlinClockLamp()
+        
+        #expect(viewModel.error != nil)
+        #expect(viewModel.error as? TimeValidationError == .invalidSeconds(222))
+    }
 
 }
