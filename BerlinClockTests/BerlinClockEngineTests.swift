@@ -7,20 +7,20 @@ struct BerlinClockEngineTests {
     
     @Test("Seconds lamp is on for even seconds", arguments: Array(stride(from: 0, to: 60, by: 2)))
     func secondsLampIsOnForEvenSeconds(seconds: UInt) {
-        let original = try! engine.isSecondsLampOn(seconds: seconds)
-        #expect(original == true, "Failed at seconds \(seconds)")
+        let original = try! engine.secondsLamps(seconds: seconds)
+        #expect(original == .on, "Failed at seconds \(seconds)")
     }
     
     @Test("Seconds lamp is off for odd seconds", arguments: Array(stride(from: 1, to: 60, by: 2)))
     func secondsLampIsOffForEvenSeconds(seconds: UInt) {
-        let original = try! engine.isSecondsLampOn(seconds: seconds)
-        #expect(original == false, "Failed at seconds \(seconds)")
+        let original = try! engine.secondsLamps(seconds: seconds)
+        #expect(original == .off, "Failed at seconds \(seconds)")
     }
     
     @Test("Seconds lamp should not be more than 59", arguments: [61, 72, 75, 100, 200, 333, 555, 1000])
     func secondsLampShouldNotBeMoreThan59(seconds: UInt) {
         #expect {
-            try engine.isSecondsLampOn(seconds: seconds)
+            try engine.secondsLamps(seconds: seconds)
         } throws: { error in
             guard let timeValidationError = error as? TimeValidationError else { return false }
             
