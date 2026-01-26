@@ -8,10 +8,14 @@ class BerlinClockEngine {
     }
     
     func fiveHoursToLamp(hours: UInt) -> [LampState] {
-        if hours == 5 {
+        switch hours {
+        case 5:
             return [.on, .off, .off, .off]
+        case 10:
+            return [.on, .on, .off, .off]
+        default:
+            return [.off, .off, .off, .off]
         }
-        return [.off, .off, .off, .off]
     }
 
 }
