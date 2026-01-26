@@ -38,8 +38,20 @@ struct BerlinClockEngineTests {
     ])
     func fiveHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {
-            let original = engine.fiveHoursToLamp(hours: $0)
+            let original = try! engine.fiveHoursToLamp(hours: $0)
             #expect(original == expected, "Failed at hour \($0)")
+        }
+    }
+    
+    @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
+    func throwError_whenHoursLamp_greaterThan23(hours: UInt) {
+        #expect {
+            try engine.fiveHoursToLamp(hours: hours)
+        } throws: { error in
+            guard let timeValidationError = error as? TimeValidationError else { return false }
+            
+            return timeValidationError == .invalidHours(hours) &&
+            timeValidationError.localizedDescription == "Invalid hours: \(hours). Hours must be between 0 and 23."
         }
     }
 
