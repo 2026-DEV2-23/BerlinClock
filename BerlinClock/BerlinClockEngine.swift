@@ -36,7 +36,10 @@ class BerlinClockEngine {
         }
     }
     
-    func oneMinuteToLamp(minutes: UInt) -> [LampState] {
+    func oneMinuteToLamp(minutes: UInt) throws -> [LampState] {
+        guard (0...59).contains(minutes) else {
+            throw TimeValidationError.invalidMinutes(minutes)
+        }
         switch minutes {
         case 1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56:
             return [.yellow, .off, .off, .off]

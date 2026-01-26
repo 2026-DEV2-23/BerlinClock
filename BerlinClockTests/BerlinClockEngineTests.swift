@@ -148,8 +148,20 @@ struct BerlinClockEngineTests {
     ])
     func oneMinuteLampRows(minArray: [UInt], expected: [LampState]) {
         minArray.forEach {
-            let result = engine.oneMinuteToLamp(minutes: $0)
+            let result = try! engine.oneMinuteToLamp(minutes: $0)
             #expect(result == expected, "Failed at minute \($0)")
+        }
+    }
+    
+    @Test("Throw an error when minutes > 59", arguments: [60, 69, 99, 150, 201, 678, 904, 1000])
+    func throwError_oneMinuteLamp_whenMinutes_greaterThan59(minutes: UInt) {
+        #expect {
+            _ = try engine.oneMinuteToLamp(minutes: minutes)
+        } throws: { error in
+            guard let timeValidationError = error as? TimeValidationError else { return false }
+            
+            return timeValidationError == .invalidMinutes(minutes) &&
+            timeValidationError.localizedDescription == "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
         }
     }
     
