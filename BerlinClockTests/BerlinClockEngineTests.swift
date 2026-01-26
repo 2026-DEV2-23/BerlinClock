@@ -139,40 +139,18 @@ struct BerlinClockEngineTests {
         }
     }
     
-    @Test("One min lamp test when minute = 1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56", arguments: [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56])
-    func oneMinuteLamp_whenMinutes_IsEqual_1_6_11_16_21_26_31_36_41_46_51_56(minutes: UInt) {
-        let original = engine.oneMinuteToLamp(minutes: minutes)
-        let expected: [LampState] = [.yellow, .off, .off, .off]
-        #expect(original == expected, "Failed at minute \(minutes)")
+    @Test("one minute lamp test", arguments: [
+        ([0],                                            [LampState.off,    LampState.off,    LampState.off,    LampState.off]),
+        ([1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56], [LampState.yellow, LampState.off,    LampState.off,    LampState.off]),
+        ([2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57], [LampState.yellow, LampState.yellow, LampState.off,    LampState.off]),
+        ([3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58], [LampState.yellow, LampState.yellow, LampState.yellow, LampState.off]),
+        ([4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59], [LampState.yellow, LampState.yellow, LampState.yellow, LampState.yellow])
+    ])
+    func oneMinuteLampRows(minArray: [UInt], expected: [LampState]) {
+        minArray.forEach {
+            let result = engine.oneMinuteToLamp(minutes: $0)
+            #expect(result == expected, "Failed at minute \($0)")
+        }
     }
     
-    @Test("One min lamp test when minute = 2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57", arguments: [2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57])
-    func oneMinuteLamp_whenMinutes_IsEqual_2_7_12_17_22_27_32_37_42_47_52_57(minutes: UInt) {
-        let original = engine.oneMinuteToLamp(minutes: minutes)
-        let expected: [LampState] = [.yellow, .yellow, .off, .off]
-        #expect(original == expected, "Failed at minute \(minutes)")
-    }
-    
-    @Test("One min lamp test when minute = 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58", arguments: [3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58])
-    func oneMinuteLamp_whenMinutes_IsEqual_3_8_13_18_23_33_38_43_48_53_58(minutes: UInt) {
-        let original = engine.oneMinuteToLamp(minutes: minutes)
-        let expected: [LampState] = [.yellow, .yellow, .yellow, .off]
-        #expect(original == expected, "Failed at minute \(minutes)")
-    }
-    
-    @Test("One min lamp test when minute = 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59", arguments: [4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59])
-    func oneMinuteLamp_whenMinutes_IsEqual_4_9_14_19_24_29_34_39_44_49_54_59(minutes: UInt) {
-        let original = engine.oneMinuteToLamp(minutes: minutes)
-        let expected: [LampState] = [.yellow, .yellow, .yellow, .yellow]
-        #expect(original == expected, "Failed at minute \(minutes)")
-    }
-    
-    @Test("One min lamp test when minute = 0")
-    func oneMinuteLamp_whenMinutes_IsEqual_0() {
-        let minutes: UInt = 0
-        let original = engine.oneMinuteToLamp(minutes: minutes)
-        let expected: [LampState] = [.off, .off, .off, .off]
-        #expect(original == expected, "Failed at minute \(minutes)")
-    }
-
 }
