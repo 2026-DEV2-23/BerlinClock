@@ -10,13 +10,13 @@ class BerlinClockEngine {
         guard (0...59).contains(seconds) else {
             throw TimeValidationError.invalidSeconds(seconds)
         }
-        let secondsLamp = secondsToLamp(seconds: seconds)
-        let fiveHourLamp = fiveHoursToLamp(hours: hours)
-        let oneHourLamp = oneHourToLamp(hours: hours)
-        let fiveMinutesLamp = fiveMinutesToLamp(minutes: minutes)
-        let oneMinuteLamp = oneMinuteToLamp(minutes: minutes)
         
-        return BerlinClockLamp(secondsLamp: secondsLamp, fiveHoursLamp: fiveHourLamp, oneHourLamp: oneHourLamp, fiveMinutesLamp: fiveMinutesLamp, oneMinuteLamp: oneMinuteLamp)
+        return BerlinClockLamp(secondsLamp: secondsToLamp(seconds: seconds),
+            fiveHoursLamp: fiveHoursToLamp(hours: hours),
+            oneHourLamp: oneHourToLamp(hours: hours),
+            fiveMinutesLamp: fiveMinutesToLamp(minutes: minutes),
+            oneMinuteLamp: oneMinuteToLamp(minutes: minutes)
+        )
     }
     
     private func secondsToLamp(seconds: UInt) -> LampState {
