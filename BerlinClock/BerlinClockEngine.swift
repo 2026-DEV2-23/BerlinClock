@@ -35,6 +35,16 @@ class BerlinClockEngine {
             return .off
         }
     }
+    
+    func oneMinuteToLamp(minutes: UInt) -> [LampState] {
+        switch minutes {
+        case 1:
+            return [.yellow, .off, .off, .off]
+        default:
+            return [.off, .off, .off, .off]
+        }
+    }
+
 }
 
 enum TimeValidationError: Error, Equatable {
