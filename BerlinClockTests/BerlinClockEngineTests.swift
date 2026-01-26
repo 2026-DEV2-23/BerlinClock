@@ -80,4 +80,13 @@ struct BerlinClockEngineTests {
             timeValidationError.localizedDescription == "Invalid hours: \(hours). Hours must be between 0 and 23."
         }
     }
+    
+    @Test("five minutes lamp test when minutes = 5")
+    func fiveMinutesLamp_whenMinutes_IsEqual_5() {
+        let minutes: UInt = 5
+        let original = engine.fiveMinutesToLamp(minutes: minutes)
+        let expected: [LampState] = [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
+        #expect(original == expected, "Failed at minutes \(minutes)")
+    }
+
 }

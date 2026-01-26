@@ -22,6 +22,15 @@ class BerlinClockEngine {
         let lamps = hours % 5
         return (0..<4).map { $0 < lamps ? .on : .off }
     }
+    
+    func fiveMinutesToLamp(minutes: UInt) -> [LampState] {
+        switch minutes {
+        case 5:
+            return [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
+        default:
+            return [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
+        }
+    }
 }
 
 enum TimeValidationError: Error, Equatable {
@@ -41,11 +50,14 @@ enum TimeValidationError: Error, Equatable {
 enum LampState: Equatable, Sendable {
     case off
     case on
+    case yellow
     
-    // Manually implementing the comparison to strip away the actor isolation in swift 6.0
+    // Manually implementing the comparison to strip away actor isolation
     nonisolated static func == (lhs: LampState, rhs: LampState) -> Bool {
         switch (lhs, rhs) {
-        case (.off, .off), (.on, .on):
+        case (.off, .off),
+            (.on, .on),
+            (.yellow, .yellow):
             return true
         default:
             return false
