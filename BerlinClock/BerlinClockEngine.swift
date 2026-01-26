@@ -22,4 +22,14 @@ enum TimeValidationError: Error, Equatable {
 enum LampState: Equatable, Sendable {
     case off
     case on
+    
+    // Manually implementing the comparison to strip away the actor isolation in swift 6.0
+    nonisolated static func == (lhs: LampState, rhs: LampState) -> Bool {
+        switch (lhs, rhs) {
+        case (.off, .off), (.on, .on):
+            return true
+        default:
+            return false
+        }
+    }
 }
