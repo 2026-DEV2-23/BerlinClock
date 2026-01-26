@@ -91,7 +91,7 @@ struct BerlinClockViewModelTests {
     }
     
     @Test("throw an invalidHours error when viewmodel updateBerlinClockLamp is called")
-    func throwError_when_viewmodel_updateBerlinClockLamp_isCalled() {
+    func throwError_invalidHours__when_viewmodel_updateBerlinClockLamp_isCalled() {
         let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidHours(61))
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
