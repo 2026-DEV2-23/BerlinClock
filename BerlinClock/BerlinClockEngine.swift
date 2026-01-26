@@ -1,7 +1,7 @@
 class BerlinClockEngine {
     
     func secondsLamps(seconds: UInt) throws -> LampState {
-        if !(0...59).contains(seconds) {
+        guard (0...59).contains(seconds) else {
             throw TimeValidationError.invalidSeconds(seconds)
         }
         return seconds % 2 == 0 ? .on : .off
