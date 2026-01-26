@@ -29,39 +29,18 @@ struct BerlinClockEngineTests {
         }
     }
     
-    @Test("Five hours lamp test when hour = 5, 6, 7, 8, 9", arguments: [5, 6, 7, 8, 9])
-    func fiveHoursLamp_whenHours_IsEqual_5_6_7_8_9(hours: UInt) {
-        let original = engine.fiveHoursToLamp(hours: hours)
-        let expected: [LampState] = [.on, .off, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("Five hours lamp test when hour = 10, 11, 12, 13, 14", arguments: [10, 11, 12, 13, 14])
-    func fiveHoursLamp_whenHours_IsEqual_10_11_12_13_14_15(hours: UInt) {
-        let original = engine.fiveHoursToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("Five hours lamp test when hour = 15, 16, 17, 18, 19", arguments: [15, 16, 17, 18, 19])
-    func fiveHoursLamp_whenHours_IsEqual_15(hours: UInt) {
-        let original = engine.fiveHoursToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .on, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("Five hours lamp test when hour = 20, 21, 22, 23", arguments: [20, 21, 22, 23])
-    func fiveHoursLamp_whenHours_IsEqual_20(hours: UInt) {
-        let original = engine.fiveHoursToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .on, .on]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("Five hours lamp test when hour = 0, 1, 2, 3, 4", arguments: [0, 1, 2, 3, 4])
-    func fiveHoursLamp_whenHours_IsEqual_0_1_2_3_4(hours: UInt) {
-        let original = engine.fiveHoursToLamp(hours: hours)
-        let expected: [LampState] = [.off, .off, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
+    @Test("Five hours row lamp test", arguments: [
+        ([0, 1, 2, 3, 4],      [LampState.off, LampState.off, LampState.off, LampState.off]),
+        ([5, 6, 7, 8, 9],      [LampState.on,  LampState.off, LampState.off, LampState.off]),
+        ([10, 11, 12, 13, 14], [LampState.on,  LampState.on,  LampState.off, LampState.off]),
+        ([15, 16, 17, 18, 19], [LampState.on,  LampState.on,  LampState.on,  LampState.off]),
+        ([20, 21, 22, 23],     [LampState.on,  LampState.on,  LampState.on,  LampState.on ])
+    ])
+    func fiveHourLampRows(hoursArray: [UInt], expected: [LampState]) {
+        hoursArray.forEach {
+            let original = engine.fiveHoursToLamp(hours: $0)
+            #expect(original == expected, "Failed at hour \($0)")
+        }
     }
 
 }
