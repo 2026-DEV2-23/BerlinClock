@@ -15,7 +15,11 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .on : .off }
     }
     
-    func oneHourToLamp(hours: UInt) -> [LampState] {
+    func oneHourToLamp(hours: UInt) throws -> [LampState] {
+        guard (0...23).contains(hours) else {
+            throw TimeValidationError.invalidHours(hours)
+        }
+
         switch hours {
         case 1, 6, 11, 16, 21:
             return [.on, .off, .off, .off]
