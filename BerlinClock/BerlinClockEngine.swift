@@ -23,7 +23,10 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .red : .off }
     }
     
-    func fiveMinutesToLamp(minutes: UInt) -> [LampState] {
+    func fiveMinutesToLamp(minutes: UInt) throws -> [LampState] {
+        guard (0...59).contains(minutes) else {
+            throw TimeValidationError.invalidMinutes(minutes)
+        }
         switch minutes {
         case 5, 6, 7, 8, 9:
             return [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
@@ -56,6 +59,7 @@ class BerlinClockEngine {
 enum TimeValidationError: Error, Equatable {
     case invalidSeconds(UInt)
     case invalidHours(UInt)
+    case invalidMinutes(UInt)
     
     var localizedDescription: String {
         switch self {
@@ -63,6 +67,8 @@ enum TimeValidationError: Error, Equatable {
             return "Invalid seconds: \(seconds). Seconds must be between 0 and 59."
         case .invalidHours(let hours):
             return "Invalid hours: \(hours). Hours must be between 0 and 23."
+        case .invalidMinutes(let minutes):
+            return "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
         }
     }
 }
