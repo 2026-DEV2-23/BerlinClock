@@ -95,25 +95,23 @@ struct BerlinClockEngineTests {
         #expect(original == expected, "Failed at minutes \(minutes)")
     }
     
-    @Test("five minutes lamp test when minutes = 15")
-    func fiveMinutesLamp_whenMinutes_IsEqual_15() {
-        let minutes: UInt = 15
+    @Test("five minutes lamp test when minutes = 15, 16, 17, 18, 19", arguments: [15, 16, 17, 18, 19])
+    func fiveMinutesLamp_whenMinutes_IsEqual_15_16_17_18_19(minutes: UInt) {
         let original = engine.fiveMinutesToLamp(minutes: minutes)
         let expected: [LampState] = [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off]
         #expect(original == expected, "Failed at minutes \(minutes)")
     }
     
-    @Test("five minutes lamp test when minutes = 20")
-    func fiveMinutesLamp_whenMinutes_IsEqual_20() {
+    @Test("five minutes lamp test when minutes = 20, 21, 22, 23, 24", arguments: [20, 21, 22, 23, 24])
+    func fiveMinutesLamp_whenMinutes_IsEqual_20_21_22_23_24(minutes: UInt) {
         let minutes: UInt = 20
         let original = engine.fiveMinutesToLamp(minutes: minutes)
         let expected: [LampState] = [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off]
         #expect(original == expected, "Failed at minutes \(minutes)")
     }
     
-    @Test("five minutes lamp test when minutes = 25")
-    func fiveMinutesLamp_whenMinutes_IsEqual_25() {
-        let minutes: UInt = 25
+    @Test("five minutes lamp test when minutes = 25, 26, 27, 28, 29", arguments: [25, 26, 27, 28, 29])
+    func fiveMinutesLamp_whenMinutes_IsEqual_25_26_27_28_29(minutes: UInt) {
         let original = engine.fiveMinutesToLamp(minutes: minutes)
         let expected: [LampState] = [.yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off, .off, .off, .off]
         #expect(original == expected, "Failed at minutes \(minutes)")

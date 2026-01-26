@@ -29,11 +29,11 @@ class BerlinClockEngine {
             return [.yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         case 10, 11, 12, 13, 14:
             return [.yellow, .yellow, .off, .off, .off, .off, .off, .off, .off, .off, .off]
-        case 15:
+        case 15, 16, 17, 18, 19:
             return [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off]
-        case 20:
+        case 20, 21, 22, 23, 24:
             return [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off]
-        case 25:
+        case 25, 26, 27, 28, 29:
             return [.yellow, .yellow, .red, .yellow, .yellow, .off, .off, .off, .off, .off, .off]
         case 30:
             return [.yellow, .yellow, .red, .yellow, .yellow, .red, .off, .off, .off, .off, .off]
