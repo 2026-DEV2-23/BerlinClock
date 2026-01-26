@@ -44,7 +44,7 @@ struct BerlinClockEngineTests {
     }
     
     @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
-    func throwError_whenHours_greaterThan23(hours: UInt) {
+    func throwError_fiveHoursLamp_whenHours_greaterThan23(hours: UInt) {
         #expect {
             try engine.fiveHoursToLamp(hours: hours)
         } throws: { error in
