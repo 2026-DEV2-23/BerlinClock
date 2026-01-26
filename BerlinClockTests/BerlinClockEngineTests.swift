@@ -55,39 +55,17 @@ struct BerlinClockEngineTests {
         }
     }
 
-    @Test("one hour lamp test when hour = 1, 6, 11, 16, 21", arguments: [1, 6, 11, 16, 21])
-    func oneHourLamp_whenHours_IsEqual_1_6_11_16_21(hours: UInt) {
-        let original = engine.oneHourToLamp(hours: hours)
-        let expected: [LampState] = [.on, .off, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
+    @Test("one hour row lamp test", arguments:[
+        ([0, 5, 10, 15, 20],  [LampState.off, LampState.off, LampState.off, LampState.off]),
+        ([1, 6, 11, 16, 21],  [LampState.on,  LampState.off, LampState.off, LampState.off]),
+        ([2, 7, 12, 17, 22],  [LampState.on,  LampState.on,  LampState.off, LampState.off]),
+        ([3, 8, 13, 18, 23],  [LampState.on,  LampState.on,  LampState.on,  LampState.off]),
+        ([4, 9, 14, 19],      [LampState.on,  LampState.on,  LampState.on,  LampState.on ])
+    ])
+    func oneHourLampRows(hoursArray: [UInt], expected: [LampState]) {
+        hoursArray.forEach {
+            let original = engine.oneHourToLamp(hours: $0)
+            #expect(original == expected, "Failed at hour \($0)")
+        }
     }
-    
-    @Test("one hour lamp test when hour = 2, 7, 12, 17, 22", arguments: [2, 7, 12, 17, 22])
-    func oneHourLamp_whenHours_IsEqual_2_7_12_17_22(hours: UInt) {
-        let original = engine.oneHourToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("one hour lamp test when hour = 3, 8, 13, 18, 23", arguments: [3, 8, 13, 18, 23])
-    func oneHourLamp_whenHours_IsEqual_3_8_13_18_23(hours: UInt) {
-        let original = engine.oneHourToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .on, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("one hour lamp test when hour = 4, 9, 14, 19", arguments: [4, 9, 14, 19])
-    func oneHourLamp_whenHours_IsEqual_4_9_14_19(hours: UInt) {
-        let original = engine.oneHourToLamp(hours: hours)
-        let expected: [LampState] = [.on, .on, .on, .on]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-    
-    @Test("one hour lamp test when hour = 0, 5, 10, 15, 20", arguments: [0, 5, 10, 15, 20])
-    func oneHourLamp_whenHours_IsEqual_0_5_10_15_20(hours: UInt) {
-        let original = engine.oneHourToLamp(hours: hours)
-        let expected: [LampState] = [.off, .off, .off, .off]
-        #expect(original == expected, "Failed at hours \(hours)")
-    }
-
 }
