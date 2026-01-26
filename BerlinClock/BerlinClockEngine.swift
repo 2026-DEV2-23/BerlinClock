@@ -1,6 +1,6 @@
 class BerlinClockEngine {
     
-    func convertHoursMinutesAndSecondsToLamp(hours: UInt, minutes: UInt, seconds: UInt) throws -> (secondsLamp: LampState, fiveHourLamp: [LampState], oneHourLamp: [LampState], fiveMinutesLamp: [LampState], oneMinuteLamp: [LampState]) {
+    func convertHoursMinutesAndSecondsToLamp(hours: UInt, minutes: UInt, seconds: UInt) throws -> BerlinClockLamp {
         guard (0...23).contains(hours) else {
             throw TimeValidationError.invalidHours(hours)
         }
@@ -15,7 +15,8 @@ class BerlinClockEngine {
         let oneHourLamp = oneHourToLamp(hours: hours)
         let fiveMinutesLamp = fiveMinutesToLamp(minutes: minutes)
         let oneMinuteLamp = oneMinuteToLamp(minutes: minutes)
-        return (secondsLamp, fiveHourLamp, oneHourLamp, fiveMinutesLamp, oneMinuteLamp)
+        
+        return BerlinClockLamp(secondsLamp: secondsLamp, fiveHoursLamp: fiveHourLamp, oneHourLamp: oneHourLamp, fiveMinutesLamp: fiveMinutesLamp, oneMinuteLamp: oneMinuteLamp)
     }
     
     private func secondsToLamp(seconds: UInt) -> LampState {
@@ -47,6 +48,14 @@ class BerlinClockEngine {
         return (0..<4).map { $0 < lamps ? .yellow : .off }
     }
 
+}
+
+struct BerlinClockLamp {
+    let secondsLamp: LampState
+    let fiveHoursLamp: [LampState]
+    let oneHourLamp: [LampState]
+    let fiveMinutesLamp: [LampState]
+    let oneMinuteLamp: [LampState]
 }
 
 enum TimeValidationError: Error, Equatable {

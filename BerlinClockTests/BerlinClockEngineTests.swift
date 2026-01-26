@@ -38,7 +38,7 @@ struct BerlinClockEngineTests {
     ])
     func fiveHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {
-            let original = try! engine.convertHoursMinutesAndSecondsToLamp(hours: $0, minutes: 0, seconds: 0).fiveHourLamp
+            let original = try! engine.convertHoursMinutesAndSecondsToLamp(hours: $0, minutes: 0, seconds: 0).fiveHoursLamp
             #expect(original == expected, "Failed at hour \($0)")
         }
     }
@@ -46,7 +46,7 @@ struct BerlinClockEngineTests {
     @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
     func throwError_fiveHoursLamp_whenHours_greaterThan23(hours: UInt) {
         #expect {
-            try engine.convertHoursMinutesAndSecondsToLamp(hours: hours, minutes: 0, seconds: 0).fiveHourLamp
+            try engine.convertHoursMinutesAndSecondsToLamp(hours: hours, minutes: 0, seconds: 0).fiveHoursLamp
         } throws: { error in
             guard let timeValidationError = error as? TimeValidationError else { return false }
             
