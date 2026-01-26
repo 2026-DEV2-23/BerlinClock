@@ -3,19 +3,24 @@ import Testing
 
 @Suite("Berlin Clock View Model Tests")
 struct BerlinClockViewModelTests {
-    let viewModel = BerlinClockViewModel()
-    
-    @Test("test initial values of berlinClockLamp")
-    func testInitialState() {
-        #expect(viewModel.berlinClockLamp.secondsLamp == .off)
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp.allSatisfy { $0 == .off })
-        #expect(viewModel.berlinClockLamp.fiveHoursLamp.count == 4)
-        #expect(viewModel.berlinClockLamp.oneHourLamp.allSatisfy { $0 == .off })
-        #expect(viewModel.berlinClockLamp.oneHourLamp.count == 4)
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp.allSatisfy { $0 == .off })
-        #expect(viewModel.berlinClockLamp.fiveMinutesLamp.count == 11)
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp.allSatisfy { $0 == .off })
-        #expect(viewModel.berlinClockLamp.oneMinuteLamp.count == 4)
+
+    @Test("Default initial time")
+    func defaultInitialTime() {
+        let mockTime = try! DigitalTime(hours: 0, minutes: 0, seconds: 0)
+        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockEngine = MockBerlinClockEngine()
+        let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
+        
+        viewModel.updateBerlinClockLamp()
+        
+        #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed in secondsLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp.allSatisfy { $0 == .off }, "Failed in fiveHoursLamp")
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp.count == 4, "Failed in fiveHoursLamp count")
+        #expect(viewModel.berlinClockLamp.oneHourLamp.allSatisfy { $0 == .off }, "Failed in oneHourLamp")
+        #expect(viewModel.berlinClockLamp.oneHourLamp.count == 4, "Failed in oneHourLamp count")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp.allSatisfy { $0 == .off }, "Failed in fiveMinutesLamp")
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp.count == 11, "Failed in fiveMinutesLamp count")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp.allSatisfy { $0 == .off }, "Failed in oneMinuteLamp")
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp.count == 4, "Failed in oneMinuteLamp count")
     }
-    
 }

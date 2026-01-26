@@ -1,4 +1,4 @@
-class BerlinClockEngine {
+final class BerlinClockEngine: BerlinClockEngineProtocol {
     
     func convertDigitalTimeToLamp(time: DigitalTime) -> BerlinClockLamp {
         BerlinClockLamp(
