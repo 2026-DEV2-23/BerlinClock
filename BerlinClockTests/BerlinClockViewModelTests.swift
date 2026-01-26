@@ -4,11 +4,12 @@ import Testing
 @Suite("Berlin Clock View Model Tests")
 struct BerlinClockViewModelTests {
 
+    let mockEngine = MockBerlinClockEngine()
+    
     @Test("Default initial time")
     func defaultInitialTime() {
         let mockTime = try! DigitalTime(hours: 0, minutes: 0, seconds: 0)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
-        let mockEngine = MockBerlinClockEngine()
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
         viewModel.updateBerlinClockLamp()
@@ -28,7 +29,6 @@ struct BerlinClockViewModelTests {
     func morningTime() {
         let mockTime = try! DigitalTime(hours: 8, minutes: 23, seconds: 2)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
-        let mockEngine = MockBerlinClockEngine()
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
         viewModel.updateBerlinClockLamp()
