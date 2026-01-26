@@ -62,9 +62,8 @@ struct BerlinClockEngineTests {
         #expect(original == expected, "Failed at hours \(hours)")
     }
     
-    @Test("one hour lamp test when hour = 2")
-    func oneHourLamp_whenHours_IsEqual_2() {
-        let hours: UInt = 2
+    @Test("one hour lamp test when hour = 2, 7, 12, 17, 22", arguments: [2, 7, 12, 17, 22])
+    func oneHourLamp_whenHours_IsEqual_2_7_12_17_22(hours: UInt) {
         let original = engine.oneHourToLamp(hours: hours)
         let expected: [LampState] = [.on, .on, .off, .off]
         #expect(original == expected, "Failed at hours \(hours)")
