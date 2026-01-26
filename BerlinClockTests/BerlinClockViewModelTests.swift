@@ -23,4 +23,20 @@ struct BerlinClockViewModelTests {
         #expect(viewModel.berlinClockLamp.oneMinuteLamp.allSatisfy { $0 == .off }, "Failed in oneMinuteLamp")
         #expect(viewModel.berlinClockLamp.oneMinuteLamp.count == 4, "Failed in oneMinuteLamp count")
     }
+    
+    @Test("morning time test")
+    func morningTime() {
+        let mockTime = try! DigitalTime(hours: 8, minutes: 23, seconds: 2)
+        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockEngine = MockBerlinClockEngine()
+        let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
+        
+        viewModel.updateBerlinClockLamp()
+        
+        #expect(viewModel.berlinClockLamp.secondsLamp == .red)
+        #expect(viewModel.berlinClockLamp.fiveHoursLamp == [.red, .off, .off, .off])
+        #expect(viewModel.berlinClockLamp.oneHourLamp == [.red, .red, .red, .off])
+        #expect(viewModel.berlinClockLamp.fiveMinutesLamp == [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off])
+        #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .off])
+    }
 }
