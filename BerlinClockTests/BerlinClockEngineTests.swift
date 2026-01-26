@@ -28,4 +28,13 @@ struct BerlinClockEngineTests {
             timeValidationError.localizedDescription == "Invalid seconds: \(seconds). Seconds must be between 0 and 59."
         }
     }
+    
+    @Test("Five hours lamp test when hour = 5")
+    func fiveHoursLamp_whenHours_IsEqual_5() {
+        let hours: UInt = 5
+        let original = engine.fiveHoursToLamp(hours: hours)
+        let expected: [LampState] = [.on, .off, .off, .off]
+        #expect(original == expected, "Failed at hours \(hours)")
+    }
+
 }
