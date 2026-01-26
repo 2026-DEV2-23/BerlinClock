@@ -1,6 +1,6 @@
 class BerlinClockEngine {
     
-    func convertHoursMinutesAndSecondsToLamp(time: DigitalTime) -> BerlinClockLamp {
+    func convertDigitalTimeToLamp(time: DigitalTime) -> BerlinClockLamp {
         BerlinClockLamp(
             secondsLamp: secondsToLamp(seconds: time.seconds),
             fiveHoursLamp: fiveHoursToLamp(hours: time.hours),
