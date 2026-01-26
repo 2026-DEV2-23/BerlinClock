@@ -14,7 +14,14 @@ class BerlinClockEngine {
         let lamps = hours / 5
         return (0..<4).map { $0 < lamps ? .on : .off }
     }
-
+    
+    func oneHourToLamp(hours: UInt) -> [LampState] {
+        if hours == 1 {
+            return [.on, .off, .off, .off]
+        } else {
+            return [.off, .off, .off, .off]
+        }
+    }
 }
 
 enum TimeValidationError: Error, Equatable {

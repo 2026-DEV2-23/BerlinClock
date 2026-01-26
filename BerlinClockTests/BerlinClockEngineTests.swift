@@ -55,4 +55,12 @@ struct BerlinClockEngineTests {
         }
     }
 
+    @Test("one hour lamp test when hour = 1")
+    func oneHourLamp_whenHours_IsEqual_1() {
+        let hours: UInt = 1
+        let original = engine.oneHourToLamp(hours: hours)
+        let expected: [LampState] = [.on, .off, .off, .off]
+        #expect(original == expected, "Failed at hours \(hours)")
+    }
+
 }
