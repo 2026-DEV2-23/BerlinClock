@@ -20,7 +20,7 @@ struct BerlinClockContentView: View {
                                 .fill(.red)
                         }
                         .frame(height: 100)
-                        
+                    
                 }
             }
             
@@ -33,7 +33,20 @@ struct BerlinClockContentView: View {
                                 .fill(.red)
                         )
                         .frame(height: 100)
-                        
+                    
+                }
+            }
+            
+            HStack(spacing: 15) {
+                ForEach(0..<11, id:\.self) { index in
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray, lineWidth: 5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(.red)
+                        )
+                        .frame(height: 100)
+                    
                 }
             }
         }
