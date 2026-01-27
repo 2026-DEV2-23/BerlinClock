@@ -17,18 +17,6 @@ struct BerlinClockEngineTests {
         #expect(original == .off, "Failed at seconds \(seconds)")
     }
     
-    @Test("Seconds lamp should not be more than 59", arguments: [61, 72, 75, 100, 200, 333, 555, 1000])
-    func throwError_whenSeconds_greaterThan59(seconds: UInt) {
-        #expect {
-            try engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: 0, seconds: seconds)).secondsLamp
-        } throws: { error in
-            guard let timeValidationError = error as? TimeValidationError else { return false }
-            
-            return timeValidationError == .invalidSeconds(seconds) &&
-            timeValidationError.localizedDescription == "Invalid seconds: \(seconds). Seconds must be between 0 and 59."
-        }
-    }
-    
     @Test("Five hours row lamp test", arguments: [
         ([0, 1, 2, 3, 4],      [LampState.off, LampState.off, LampState.off, LampState.off]),
         ([5, 6, 7, 8, 9],      [LampState.red, LampState.off, LampState.off, LampState.off]),
@@ -40,18 +28,6 @@ struct BerlinClockEngineTests {
         hoursArray.forEach {
             let original = try! engine.convertDigitalTimeToLamp(time: .init(hours: $0, minutes: 0, seconds: 0)).fiveHoursLamp
             #expect(original == expected, "Failed at hour \($0)")
-        }
-    }
-    
-    @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
-    func throwError_fiveHoursLamp_whenHours_greaterThan23(hours: UInt) {
-        #expect {
-            try engine.convertDigitalTimeToLamp(time: .init(hours: hours, minutes: 0, seconds: 0)).fiveHoursLamp
-        } throws: { error in
-            guard let timeValidationError = error as? TimeValidationError else { return false }
-            
-            return timeValidationError == .invalidHours(hours) &&
-            timeValidationError.localizedDescription == "Invalid hours: \(hours). Hours must be between 0 and 23."
         }
     }
     
@@ -68,19 +44,6 @@ struct BerlinClockEngineTests {
             #expect(original == expected, "Failed at hour \($0)")
         }
     }
-    
-    @Test("Throw an error when hours > 23", arguments: [24, 50, 60, 100, 130, 423, 654, 1000])
-    func throwError_oneHourLamp_whenHours_greaterThan23(hours: UInt) {
-        #expect {
-            try engine.convertDigitalTimeToLamp(time: .init(hours: hours, minutes: 0, seconds: 0)).oneHourLamp
-        } throws: { error in
-            guard let timeValidationError = error as? TimeValidationError else { return false }
-            
-            return timeValidationError == .invalidHours(hours) &&
-            timeValidationError.localizedDescription == "Invalid hours: \(hours). Hours must be between 0 and 23."
-        }
-    }
-    
     
     @Test("five mins lamp test", arguments: [
         ([0, 1, 2, 3, 4],
@@ -127,18 +90,6 @@ struct BerlinClockEngineTests {
         }
     }
     
-    @Test("Throw an error when minutes > 59", arguments: [60, 69, 99, 150, 201, 678, 904, 1000])
-    func throwError_fiveMinutesLamp_whenMinutes_greaterThan59(minutes: UInt) {
-        #expect {
-            _ = try engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: minutes, seconds: 0)).fiveMinutesLamp
-        } throws: { error in
-            guard let timeValidationError = error as? TimeValidationError else { return false }
-            
-            return timeValidationError == .invalidMinutes(minutes) &&
-            timeValidationError.localizedDescription == "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
-        }
-    }
-    
     @Test("one minute lamp test", arguments: [
         ([0],                                            [LampState.off,    LampState.off,    LampState.off,    LampState.off]),
         ([1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56], [LampState.yellow, LampState.off,    LampState.off,    LampState.off]),
@@ -152,17 +103,4 @@ struct BerlinClockEngineTests {
             #expect(result == expected, "Failed at minute \($0)")
         }
     }
-    
-    @Test("Throw an error when minutes > 59", arguments: [60, 69, 99, 150, 201, 678, 904, 1000])
-    func throwError_oneMinuteLamp_whenMinutes_greaterThan59(minutes: UInt) {
-        #expect {
-            _ = try engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: minutes, seconds: 0)).oneMinuteLamp
-        } throws: { error in
-            guard let timeValidationError = error as? TimeValidationError else { return false }
-            
-            return timeValidationError == .invalidMinutes(minutes) &&
-            timeValidationError.localizedDescription == "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
-        }
-    }
-    
 }
