@@ -12,10 +12,10 @@ struct BerlinClockContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             secondsLampView
-            fiveHoursLamp
-            oneHourLamp
-            fiveMinsLamp
-            oneMinuteLamp
+            lampView(lamps: 4)
+            lampView(lamps: 4)
+            lampView(lamps: 11)
+            lampView(lamps: 4)
         }
         .padding()
     }
@@ -30,60 +30,15 @@ struct BerlinClockContentView: View {
             .frame(width: heightOfCircle)
     }
     
-    private var fiveHoursLamp: some View {
+    private func lampView(lamps: Int) -> some View {
         HStack(spacing: hStackRectangleSpacing) {
-            ForEach(0..<4, id:\.self) { index in
+            ForEach(0..<lamps, id:\.self) { index in
                 RoundedRectangle(cornerRadius: cornerRadiusRectangle)
                     .stroke(strokeColor, lineWidth: strokeWidth)
                     .background {
                         RoundedRectangle(cornerRadius: cornerRadiusRectangle)
                             .fill(.red)
                     }
-                    .frame(height: heightOfRectangle)
-                
-            }
-        }
-    }
-    
-    private var oneHourLamp: some View {
-        HStack(spacing: hStackRectangleSpacing) {
-            ForEach(0..<4, id:\.self) { index in
-                RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                    .stroke(strokeColor, lineWidth: strokeWidth)
-                    .background(
-                        RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                            .fill(.red)
-                    )
-                    .frame(height: heightOfRectangle)
-                
-            }
-        }
-    }
-    
-    private var fiveMinsLamp: some View {
-        HStack(spacing: hStackRectangleSpacing) {
-            ForEach(0..<11, id:\.self) { index in
-                RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                    .stroke(strokeColor, lineWidth: strokeWidth)
-                    .background(
-                        RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                            .fill(.red)
-                    )
-                    .frame(height: heightOfRectangle)
-                
-            }
-        }
-    }
-    
-    private var oneMinuteLamp: some View {
-        HStack(spacing: hStackRectangleSpacing) {
-            ForEach(0..<4, id:\.self) { index in
-                RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                    .stroke(strokeColor, lineWidth: strokeWidth)
-                    .background(
-                        RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                            .fill(.red)
-                    )
                     .frame(height: heightOfRectangle)
                 
             }
