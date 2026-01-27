@@ -1,6 +1,6 @@
 import Foundation
 
-class BerlinClockTimeProvider: DigitalTimeProviderProtocol {
+final class BerlinClockTimeProvider: DigitalTimeProviderProtocol {
     func getDigitalTime(from date: Date) throws -> DigitalTime {
         
         // since hours, minutes and seconds can't be negative as retrieved from Date hence converting Int to UInt
