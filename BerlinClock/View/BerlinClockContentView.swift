@@ -49,6 +49,19 @@ struct BerlinClockContentView: View {
                     
                 }
             }
+            
+            HStack(spacing: 15) {
+                ForEach(0..<4, id:\.self) { index in
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray, lineWidth: 5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(.red)
+                        )
+                        .frame(height: 100)
+                    
+                }
+            }
         }
         .padding()
     }
