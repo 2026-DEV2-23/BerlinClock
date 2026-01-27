@@ -6,30 +6,20 @@ struct DigitalTimeTests {
     
     @Test("valid seconds range tests", arguments: 0...59)
     func validSecondsRange(seconds: UInt) {
-        let hours: UInt = 0
-        let minutes: UInt = 0
-        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
-                
-        #expect(time.hours == hours)
-        #expect(time.minutes == minutes)
-        #expect(time.seconds == seconds)
+        validRange(hours: 0, minutes: 0, seconds: seconds)
     }
     
     @Test("valid minutes range tests", arguments: 0...59)
     func validMinutesRange(minutes: UInt) {
-        let hours: UInt = 0
-        let seconds: UInt = 0
-        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
-                
-        #expect(time.hours == hours)
-        #expect(time.minutes == minutes)
-        #expect(time.seconds == seconds)
+        validRange(hours: 0, minutes: minutes, seconds: 0)
     }
     
     @Test("valid hours range tests", arguments: 0...23)
     func validHoursRange(hours: UInt) {
-        let minutes: UInt = 0
-        let seconds: UInt = 0
+        validRange(hours: hours, minutes: 0, seconds: 0)
+    }
+    
+    private func validRange(hours: UInt, minutes: UInt, seconds: UInt) {
         let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
                 
         #expect(time.hours == hours)
