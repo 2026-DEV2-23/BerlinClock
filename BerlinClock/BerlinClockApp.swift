@@ -4,7 +4,10 @@ import SwiftUI
 struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
-            BerlinClockContentView()
+            let timeProvider = BerlinClockTimeProvider()
+            let engine = BerlinClockEngine()
+            let viewModel = BerlinClockViewModel(timeProviderProtocol: timeProvider, engineProtocol: engine)
+            BerlinClockContentView(viewModel: viewModel)
         }
     }
 }

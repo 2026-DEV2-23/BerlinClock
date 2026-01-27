@@ -9,6 +9,8 @@ struct BerlinClockContentView: View {
     private let heightOfRectangle: CGFloat = 100
     private let heightOfCircle: CGFloat = 80
     
+    let viewModel: BerlinClockViewModel
+    
     var body: some View {
         VStack(spacing: 20) {
             secondsLampView
@@ -47,5 +49,8 @@ struct BerlinClockContentView: View {
 }
 
 #Preview {
-    BerlinClockContentView()
+    let timeProvider = BerlinClockTimeProvider()
+    let engine = BerlinClockEngine()
+    let viewModel = BerlinClockViewModel(timeProviderProtocol: timeProvider, engineProtocol: engine)
+    BerlinClockContentView(viewModel: viewModel)
 }
