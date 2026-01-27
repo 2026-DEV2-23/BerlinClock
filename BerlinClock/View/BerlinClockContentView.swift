@@ -15,10 +15,10 @@ struct BerlinClockContentView: View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
             VStack(spacing: 20) {
                 secondsLampView
-                lampView(lamps: 4)
-                lampView(lamps: 4)
-                lampView(lamps: 11)
-                lampView(lamps: 4)
+                lampView(lamps: viewModel.berlinClockLamp.fiveHoursLamp)
+                lampView(lamps: viewModel.berlinClockLamp.oneHourLamp)
+                lampView(lamps: viewModel.berlinClockLamp.fiveMinutesLamp)
+                lampView(lamps: viewModel.berlinClockLamp.oneMinuteLamp)
             }
             .onChange(of: context.date) { _, newDate in
                 viewModel.updateBerlinClockLamp(date: newDate)
@@ -37,18 +37,26 @@ struct BerlinClockContentView: View {
             .frame(width: heightOfCircle)
     }
     
-    private func lampView(lamps: Int) -> some View {
+    private func lampView(lamps: [LampState]) -> some View {
         HStack(spacing: hStackRectangleSpacing) {
-            ForEach(0..<lamps, id:\.self) { index in
+            ForEach(0..<lamps.count, id:\.self) { index in
                 RoundedRectangle(cornerRadius: cornerRadiusRectangle)
                     .stroke(strokeColor, lineWidth: strokeWidth)
                     .background {
                         RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                            .fill(.red)
+                            .fill(getLampColor(lampState: lamps[index]))
                     }
                     .frame(height: heightOfRectangle)
                 
             }
+        }
+    }
+    
+    private func getLampColor(lampState: LampState) -> Color {
+        switch lampState {
+        case .red: .red
+        case .yellow: .yellow
+        case .off: .clear
         }
     }
 }
