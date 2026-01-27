@@ -3,6 +3,39 @@ import Testing
 
 @Suite("Digital Time Tests")
 struct DigitalTimeTests {
+    
+    @Test("valid seconds range tests", arguments: 0...59)
+    func validSecondsRange(seconds: UInt) {
+        let hours: UInt = 0
+        let minutes: UInt = 0
+        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
+                
+        #expect(time.hours == hours)
+        #expect(time.minutes == minutes)
+        #expect(time.seconds == seconds)
+    }
+    
+    @Test("valid minutes range tests", arguments: 0...59)
+    func validMinutesRange(minutes: UInt) {
+        let hours: UInt = 0
+        let seconds: UInt = 0
+        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
+                
+        #expect(time.hours == hours)
+        #expect(time.minutes == minutes)
+        #expect(time.seconds == seconds)
+    }
+    
+    @Test("valid hours range tests", arguments: 0...23)
+    func validHoursRange(hours: UInt) {
+        let minutes: UInt = 0
+        let seconds: UInt = 0
+        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
+                
+        #expect(time.hours == hours)
+        #expect(time.minutes == minutes)
+        #expect(time.seconds == seconds)
+    }
 
     @Test("Throw an error when seconds > 59", arguments: [61, 72, 75, 100, 200, 333, 555, 1000])
     func throwError_whenSeconds_greaterThan59(seconds: UInt) {
@@ -38,16 +71,5 @@ struct DigitalTimeTests {
             return timeValidationError == .invalidMinutes(minutes) &&
             timeValidationError.localizedDescription == "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
         }
-    }
-    
-    @Test("valid seconds range tests", arguments: 0...59)
-    func validSecondsRange(seconds: UInt) {
-        let hours: UInt = 0
-        let minutes: UInt = 0
-        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
-                
-        #expect(time.hours == hours)
-        #expect(time.minutes == minutes)
-        #expect(time.seconds == seconds)
     }
 }
