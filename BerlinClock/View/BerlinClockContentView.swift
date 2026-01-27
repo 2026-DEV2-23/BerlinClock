@@ -44,16 +44,18 @@ struct BerlinClockContentView: View {
                     .stroke(strokeColor, lineWidth: strokeWidth)
                     .background {
                         RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                            .fill(getLampColor(lampState: lamps[index]))
+                            .fill(lamps[index].color)
                     }
                     .frame(height: heightOfRectangle)
                 
             }
         }
     }
-    
-    private func getLampColor(lampState: LampState) -> Color {
-        switch lampState {
+}
+
+private extension LampState {
+    var color: Color {
+        switch self {
         case .red: .red
         case .yellow: .yellow
         case .off: .clear
