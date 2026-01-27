@@ -7,14 +7,18 @@ struct BerlinClockEngineTests {
     
     @Test("Seconds lamp is on for even seconds", arguments: Array(stride(from: 0, to: 60, by: 2)))
     func secondsLampIsOnForEvenSeconds(seconds: UInt) {
-        let original = try! engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: 0, seconds: seconds)).secondsLamp
-        #expect(original == .red, "Failed at seconds \(seconds)")
+        secondsLamp(seconds: seconds, expected: .red)
     }
     
     @Test("Seconds lamp is off for odd seconds", arguments: Array(stride(from: 1, to: 60, by: 2)))
     func secondsLampIsOffForEvenSeconds(seconds: UInt) {
-        let original = try! engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: 0, seconds: seconds)).secondsLamp
-        #expect(original == .off, "Failed at seconds \(seconds)")
+        secondsLamp(seconds: seconds, expected: .off)
+    }
+    
+    private func secondsLamp(seconds: UInt, expected: LampState) {
+        let time = getTime(seconds: seconds)
+        let original = engine.convertDigitalTimeToLamp(time: time).secondsLamp
+        #expect(original == expected, "Failed at seconds \(seconds)")
     }
     
     @Test("Five hours row lamp test", arguments: [
@@ -26,7 +30,8 @@ struct BerlinClockEngineTests {
     ])
     func fiveHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {
-            let original = try! engine.convertDigitalTimeToLamp(time: .init(hours: $0, minutes: 0, seconds: 0)).fiveHoursLamp
+            let time = getTime(hours: $0)
+            let original = engine.convertDigitalTimeToLamp(time: time).fiveHoursLamp
             #expect(original == expected, "Failed at hour \($0)")
         }
     }
@@ -40,7 +45,8 @@ struct BerlinClockEngineTests {
     ])
     func oneHourLampRows(hoursArray: [UInt], expected: [LampState]) {
         hoursArray.forEach {
-            let original = try! engine.convertDigitalTimeToLamp(time: .init(hours: $0, minutes: 0, seconds: 0)).oneHourLamp
+            let time = getTime(hours: $0)
+            let original = engine.convertDigitalTimeToLamp(time: time).oneHourLamp
             #expect(original == expected, "Failed at hour \($0)")
         }
     }
@@ -85,7 +91,8 @@ struct BerlinClockEngineTests {
     
     func fiveMinsLampRows(minutesArray: [UInt], expected: [LampState]) {
         minutesArray.forEach {
-            let result = try! engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: $0, seconds: 0)).fiveMinutesLamp
+            let time = getTime(minutes: $0)
+            let result = engine.convertDigitalTimeToLamp(time: time).fiveMinutesLamp
             #expect(result == expected, "Failed at minute \($0)")
         }
     }
@@ -99,8 +106,13 @@ struct BerlinClockEngineTests {
     ])
     func oneMinuteLampRows(minArray: [UInt], expected: [LampState]) {
         minArray.forEach {
-            let result = try! engine.convertDigitalTimeToLamp(time: .init(hours: 0, minutes: $0, seconds: 0)).oneMinuteLamp
+            let time = getTime(minutes: $0)
+            let result = engine.convertDigitalTimeToLamp(time: time).oneMinuteLamp
             #expect(result == expected, "Failed at minute \($0)")
         }
+    }
+    
+    private func getTime(hours: UInt = 0, minutes: UInt = 0, seconds: UInt = 0) -> DigitalTime {
+        return try! .init(hours: hours, minutes: minutes, seconds: seconds)
     }
 }
