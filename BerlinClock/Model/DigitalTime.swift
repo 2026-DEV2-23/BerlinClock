@@ -1,4 +1,4 @@
-struct DigitalTime {
+struct DigitalTime: Equatable {
     let hours: UInt
     let minutes: UInt
     let seconds: UInt
@@ -16,5 +16,12 @@ struct DigitalTime {
         self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
+    }
+    
+    // Manually implementing the comparison to strip away actor isolation
+    nonisolated static func == (lhs: DigitalTime, rhs: DigitalTime) -> Bool {
+        lhs.hours == rhs.hours &&
+        lhs.minutes == rhs.minutes &&
+        lhs.seconds == rhs.seconds
     }
 }
