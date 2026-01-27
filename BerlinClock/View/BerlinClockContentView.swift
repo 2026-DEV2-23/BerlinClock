@@ -12,12 +12,17 @@ struct BerlinClockContentView: View {
     let viewModel: BerlinClockViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
-            secondsLampView
-            lampView(lamps: 4)
-            lampView(lamps: 4)
-            lampView(lamps: 11)
-            lampView(lamps: 4)
+        TimelineView(.periodic(from: .now, by: 1)) { context in
+            VStack(spacing: 20) {
+                secondsLampView
+                lampView(lamps: 4)
+                lampView(lamps: 4)
+                lampView(lamps: 11)
+                lampView(lamps: 4)
+            }
+            .onChange(of: context.date) { _, newDate in
+                viewModel.updateBerlinClockLamp(date: newDate)
+            }
         }
         .padding()
     }
@@ -27,7 +32,7 @@ struct BerlinClockContentView: View {
             .stroke(strokeColor, lineWidth: strokeWidth)
             .background {
                 Circle()
-                    .fill(.red)
+                    .fill(viewModel.berlinClockLamp.secondsLamp == .red ? .red : .clear)
             }
             .frame(width: heightOfCircle)
     }
