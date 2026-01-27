@@ -8,7 +8,7 @@ struct BerlinClockViewModelTests {
     
     @Test("Default initial time")
     func defaultInitialTime() {
-        let mockTime = try! DigitalTime(hours: 0, minutes: 0, seconds: 0)
+        let mockTime = getTime(hours: 0, minutes: 0, seconds: 0)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
@@ -28,7 +28,7 @@ struct BerlinClockViewModelTests {
     
     @Test("morning time test")
     func morningTime() {
-        let mockTime = try! DigitalTime(hours: 8, minutes: 23, seconds: 2)
+        let mockTime = getTime(hours: 8, minutes: 23, seconds: 2)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
@@ -44,7 +44,7 @@ struct BerlinClockViewModelTests {
     
     @Test("afternoon time test")
     func afternoonTime() {
-        let mockTime = try! DigitalTime(hours: 15, minutes: 37, seconds: 55)
+        let mockTime = getTime(hours: 15, minutes: 37, seconds: 55)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
@@ -60,7 +60,7 @@ struct BerlinClockViewModelTests {
     
     @Test("evening time test")
     func eveningTime() {
-        let mockTime = try! DigitalTime(hours: 19, minutes: 44, seconds: 45)
+        let mockTime = getTime(hours: 19, minutes: 44, seconds: 45)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
@@ -76,7 +76,7 @@ struct BerlinClockViewModelTests {
     
     @Test("end of day test")
     func endOfDay() {
-        let mockTime = try! DigitalTime(hours: 23, minutes: 59, seconds: 59)
+        let mockTime = getTime(hours: 23, minutes: 59, seconds: 59)
         let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
@@ -123,4 +123,7 @@ struct BerlinClockViewModelTests {
         #expect(viewModel.error as? TimeValidationError == .invalidSeconds(222), "Failed at invalidSeconds")
     }
 
+    private func getTime(hours: UInt, minutes: UInt, seconds: UInt) -> DigitalTime {
+        return try! .init(hours: hours, minutes: minutes, seconds: seconds)
+    }
 }
