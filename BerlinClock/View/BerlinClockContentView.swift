@@ -2,11 +2,14 @@ import SwiftUI
 
 struct BerlinClockContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 0) {
+            Circle()
+                .stroke(Color.gray, lineWidth: 5)
+                .background {
+                    Circle()
+                        .fill(.red)
+                }
+                .frame(width: 80)
         }
         .padding()
     }
