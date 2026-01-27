@@ -7,7 +7,7 @@ struct BerlinClockContentView: View {
     private let cornerRadiusRectangle: CGFloat = 5
     private let hStackRectangleSpacing: CGFloat = 15
     private let heightOfRectangle: CGFloat = 100
-    private let heightOfCircle: CGFloat = 80
+    private let widthOfCircle: CGFloat = 80
     
     let viewModel: BerlinClockViewModel
     
@@ -34,7 +34,7 @@ struct BerlinClockContentView: View {
                 Circle()
                     .fill(viewModel.berlinClockLamp.secondsLamp == .red ? .red : .clear)
             }
-            .frame(width: heightOfCircle)
+            .frame(width: widthOfCircle)
     }
     
     private func lampView(lamps: [LampState]) -> some View {
