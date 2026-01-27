@@ -1,15 +1,19 @@
 import Testing
+import Foundation
 @testable import BerlinClock
 
 class MockDigitalTimeProvider: DigitalTimeProviderProtocol {
-    private let digitalTime: DigitalTime
+    private let stubbedData: DigitalTime
+    private(set) var passedDate: Date?
+    private(set) var getDigitalTimeCalled = false
     
-    init(digitalTime: DigitalTime) {
-        self.digitalTime = digitalTime
+    func getDigitalTime(from date: Date) throws -> DigitalTime {
+        getDigitalTimeCalled = true
+        passedDate = date
+        return stubbedData
     }
     
-    func getDigitalTime() throws -> DigitalTime {
-        self.digitalTime
+    init(stubbedData: DigitalTime) {
+        self.stubbedData = stubbedData
     }
 }
-

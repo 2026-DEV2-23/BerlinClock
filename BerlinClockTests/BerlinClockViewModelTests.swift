@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import BerlinClock
 
 @Suite("Berlin Clock View Model Tests")
@@ -8,11 +9,15 @@ struct BerlinClockViewModelTests {
     
     @Test("Default initial time")
     func defaultInitialTime() {
-        let mockTime = getTime(hours: 0, minutes: 0, seconds: 0)
-        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockData = getMockData(hours: 0, minutes: 0, seconds: 0)
+        
+        let mockTimeProvider = MockDigitalTimeProvider(stubbedData: mockData.time)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        viewModel.updateBerlinClockLamp(date: mockData.date)
+        
+        #expect(mockTimeProvider.getDigitalTimeCalled == true, "Failed at getDigitalTimeCalled")
+        #expect(mockTimeProvider.passedDate == mockData.date, "Failed at passedDate")
         
         #expect(viewModel.error == nil)
         #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed in secondsLamp")
@@ -28,11 +33,14 @@ struct BerlinClockViewModelTests {
     
     @Test("morning time test")
     func morningTime() {
-        let mockTime = getTime(hours: 8, minutes: 23, seconds: 2)
-        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockData = getMockData(hours: 8, minutes: 23, seconds: 2)
+        let mockTimeProvider = MockDigitalTimeProvider(stubbedData: mockData.time)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        viewModel.updateBerlinClockLamp(date: mockData.date)
+        
+        #expect(mockTimeProvider.getDigitalTimeCalled == true, "Failed at getDigitalTimeCalled")
+        #expect(mockTimeProvider.passedDate == mockData.date, "Failed at passedDate")
         
         #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp.secondsLamp == .red, "Failed at secondsLamp")
@@ -44,11 +52,14 @@ struct BerlinClockViewModelTests {
     
     @Test("afternoon time test")
     func afternoonTime() {
-        let mockTime = getTime(hours: 15, minutes: 37, seconds: 55)
-        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockData = getMockData(hours: 15, minutes: 37, seconds: 55)
+        let mockTimeProvider = MockDigitalTimeProvider(stubbedData: mockData.time)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        viewModel.updateBerlinClockLamp(date: mockData.date)
+
+        #expect(mockTimeProvider.getDigitalTimeCalled == true, "Failed at getDigitalTimeCalled")
+        #expect(mockTimeProvider.passedDate == mockData.date, "Failed at passedDate")
         
         #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
@@ -60,11 +71,14 @@ struct BerlinClockViewModelTests {
     
     @Test("evening time test")
     func eveningTime() {
-        let mockTime = getTime(hours: 19, minutes: 44, seconds: 45)
-        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockData = getMockData(hours: 19, minutes: 44, seconds: 45)
+        let mockTimeProvider = MockDigitalTimeProvider(stubbedData: mockData.time)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        viewModel.updateBerlinClockLamp(date: mockData.date)
+
+        #expect(mockTimeProvider.getDigitalTimeCalled == true, "Failed at getDigitalTimeCalled")
+        #expect(mockTimeProvider.passedDate == mockData.date, "Failed at passedDate")
         
         #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
@@ -76,11 +90,14 @@ struct BerlinClockViewModelTests {
     
     @Test("end of day test")
     func endOfDay() {
-        let mockTime = getTime(hours: 23, minutes: 59, seconds: 59)
-        let mockTimeProvider = MockDigitalTimeProvider(digitalTime: mockTime)
+        let mockData = getMockData(hours: 23, minutes: 59, seconds: 59)
+        let mockTimeProvider = MockDigitalTimeProvider(stubbedData: mockData.time)
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        viewModel.updateBerlinClockLamp(date: mockData.date)
+
+        #expect(mockTimeProvider.getDigitalTimeCalled == true, "Failed at getDigitalTimeCalled")
+        #expect(mockTimeProvider.passedDate == mockData.date, "Failed at passedDate")
         
         #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp.secondsLamp == .off, "Failed at secondsLamp")
@@ -90,12 +107,24 @@ struct BerlinClockViewModelTests {
         #expect(viewModel.berlinClockLamp.oneMinuteLamp == [.yellow, .yellow, .yellow, .yellow], "Failed at oneMinuteLamp")
     }
     
+    private func getMockData(hours: UInt, minutes: UInt, seconds: UInt) -> (date: Date, time: DigitalTime) {
+        var dateComponent = DateComponents()
+        dateComponent.hour = Int(hours)
+        dateComponent.minute = Int(minutes)
+        dateComponent.second = Int(seconds)
+        
+        let mockDate = Calendar.current.date(from: dateComponent)!
+        let mockTime = getTime(hours: hours, minutes: minutes, seconds: seconds)
+        return (mockDate, mockTime)
+    }
+    
     @Test("throw an invalidHours error when viewmodel updateBerlinClockLamp is called")
     func throwError_invalidHours__when_viewmodel_updateBerlinClockLamp_isCalled() {
         let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidHours(61))
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        // passing Date.now object as dummyDate, anyways below method will throw an error
+        viewModel.updateBerlinClockLamp(date: .now)
         
         #expect(viewModel.error != nil, "Failed at error")
         #expect(viewModel.error as? TimeValidationError == .invalidHours(61), "Failed at invalidHours")
@@ -106,7 +135,8 @@ struct BerlinClockViewModelTests {
         let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidMinutes(100))
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        // passing Date.now object as dummyDate, anyways below method will throw an error
+        viewModel.updateBerlinClockLamp(date: .now)
         
         #expect(viewModel.error != nil, "Failed at error")
         #expect(viewModel.error as? TimeValidationError == .invalidMinutes(100), "Failed at invalidMinutes")
@@ -117,7 +147,8 @@ struct BerlinClockViewModelTests {
         let mockTimeProvider = MockFailDigitalTimeProvider(errorToThrow: .invalidSeconds(222))
         let viewModel = BerlinClockViewModel(timeProviderProtocol: mockTimeProvider, engineProtocol: mockEngine)
         
-        viewModel.updateBerlinClockLamp()
+        // passing Date.now object as dummyDate, anyways below method will throw an error
+        viewModel.updateBerlinClockLamp(date: .now)
         
         #expect(viewModel.error != nil, "Failed at error")
         #expect(viewModel.error as? TimeValidationError == .invalidSeconds(222), "Failed at invalidSeconds")

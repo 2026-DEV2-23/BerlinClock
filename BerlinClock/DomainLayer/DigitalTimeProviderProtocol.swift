@@ -1,3 +1,5 @@
+import Foundation
+
 protocol DigitalTimeProviderProtocol {
-    func getDigitalTime() throws -> DigitalTime
+    func getDigitalTime(from date: Date) throws -> DigitalTime
 }

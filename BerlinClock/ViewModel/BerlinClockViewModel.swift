@@ -12,9 +12,9 @@ class BerlinClockViewModel {
         self.engineProtocol = engineProtocol
     }
     
-    func updateBerlinClockLamp() {
+    func updateBerlinClockLamp(date: Date) {
         do {
-            let time = try timeProviderProtocol.getDigitalTime()
+            let time = try timeProviderProtocol.getDigitalTime(from: date)
             berlinClockLamp = engineProtocol.convertDigitalTimeToLamp(time: time)
             error = nil
         } catch {
