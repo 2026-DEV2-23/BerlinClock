@@ -21,7 +21,7 @@ struct BerlinClockViewModelTests {
         #expect(mockEngine.convertDigitalTimeToLampCalled == true, "Failed at convertDigitalTimeToLampCalled")
         #expect(mockEngine.lastTime == mockData.time, "Failed at lastTime")
         
-        #expect(viewModel.error == nil)
+        #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp == emptyBerlinClockLamp, "Failed in emptyBerlinClockLamp")
     }
     
@@ -78,6 +78,7 @@ struct BerlinClockViewModelTests {
         #expect(mockEngine.convertDigitalTimeToLampCalled == true, "Failed at convertDigitalTimeToLampCalled")
         #expect(mockEngine.lastTime == mockData.time, "Failed at lastTime")
         
+        #expect(viewModel.error == nil, "Failed at error")
         #expect(viewModel.berlinClockLamp == eveningBerlinClockLamp, "Failed in eveningBerlinClockLamp")
     }
     
