@@ -39,4 +39,15 @@ struct DigitalTimeTests {
             timeValidationError.localizedDescription == "Invalid minutes: \(minutes). Minutes must be between 0 and 59."
         }
     }
+    
+    @Test("valid seconds range tests", arguments: 0...59)
+    func validSecondsRange(seconds: UInt) {
+        let hours: UInt = 0
+        let minutes: UInt = 0
+        let time = try! DigitalTime(hours: hours, minutes: minutes, seconds: seconds)
+                
+        #expect(time.hours == hours)
+        #expect(time.minutes == minutes)
+        #expect(time.seconds == seconds)
+    }
 }
