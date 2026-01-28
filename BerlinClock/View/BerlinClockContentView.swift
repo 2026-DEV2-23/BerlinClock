@@ -72,8 +72,8 @@ struct BerlinClockContentView: View {
     
     private var displayTime: some View {
         Text(timeString)
-            .font(.largeTitle)
-            .foregroundStyle(.primary) 
+            .font(.system(.largeTitle, design: .monospaced))
+            .foregroundStyle(.primary)
             .bold()
     }
     
