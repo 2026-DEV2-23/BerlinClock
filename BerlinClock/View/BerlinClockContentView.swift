@@ -2,12 +2,14 @@ import SwiftUI
 
 struct BerlinClockContentView: View {
     
-    private let strokeColor: Color = Color(.systemGray)
-    private let strokeWidth: CGFloat = 5
-    private let cornerRadiusRectangle: CGFloat = 5
-    private let hStackRectangleSpacing: CGFloat = 15
-    private let heightOfRectangle: CGFloat = 100
-    private let widthOfCircle: CGFloat = 80
+    enum Constants {
+        static let strokeColor = Color(.systemGray)
+        static let strokeWidth: CGFloat = 5
+        static let cornerRadiusRectangle: CGFloat = 5
+        static let hStackRectangleSpacing: CGFloat = 15
+        static let heightOfRectangle: CGFloat = 100
+        static let widthOfCircle: CGFloat = 80
+    }
     
     let viewModel: BerlinClockViewModel
     
@@ -82,24 +84,24 @@ struct BerlinClockContentView: View {
     
     private var secondsLampView: some View {
         Circle()
-            .stroke(strokeColor, lineWidth: strokeWidth)
+            .stroke(Constants.strokeColor, lineWidth: Constants.strokeWidth)
             .background {
                 Circle()
                     .fill(viewModel.berlinClockLamp.secondsLamp.color)
             }
-            .frame(width: widthOfCircle)
+            .frame(width: Constants.widthOfCircle)
     }
     
     private func lampView(lamps: [LampState]) -> some View {
-        HStack(spacing: hStackRectangleSpacing) {
+        HStack(spacing: Constants.hStackRectangleSpacing) {
             ForEach(0..<lamps.count, id:\.self) { index in
-                RoundedRectangle(cornerRadius: cornerRadiusRectangle)
-                    .stroke(strokeColor, lineWidth: strokeWidth)
+                RoundedRectangle(cornerRadius: Constants.cornerRadiusRectangle)
+                    .stroke(Constants.strokeColor, lineWidth: Constants.strokeWidth)
                     .background {
-                        RoundedRectangle(cornerRadius: cornerRadiusRectangle)
+                        RoundedRectangle(cornerRadius: Constants.cornerRadiusRectangle)
                             .fill(lamps[index].color)
                     }
-                    .frame(height: heightOfRectangle)
+                    .frame(height: Constants.heightOfRectangle)
                 
             }
         }
