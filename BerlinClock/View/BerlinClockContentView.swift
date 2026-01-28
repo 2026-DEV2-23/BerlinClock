@@ -14,6 +14,8 @@ struct BerlinClockContentView: View {
     // Tracks the pause state
     @State private var isTimeLineViewPaused = false
     
+    @State private var timeString = ""
+    
     var body: some View {
         Group {
             if let error = viewModel.error {
@@ -45,6 +47,7 @@ struct BerlinClockContentView: View {
             Color.clear
                 .onChange(of: context.date) { _, newDate in
                     viewModel.updateBerlinClockLamp(date: newDate)
+                    convertDateToTimeIn24Format(date: newDate)
                 }
         }
     }
@@ -56,7 +59,23 @@ struct BerlinClockContentView: View {
             lampView(lamps: viewModel.berlinClockLamp.oneHourLamp)
             lampView(lamps: viewModel.berlinClockLamp.fiveMinutesLamp)
             lampView(lamps: viewModel.berlinClockLamp.oneMinuteLamp)
+            displayTime
         }
+    }
+    
+    private var displayTime: some View {
+        Text(timeString)
+            .font(.largeTitle)
+            .foregroundStyle(.black)
+            .bold()
+    }
+    
+    private func convertDateToTimeIn24Format(date: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = .current
+        timeString = dateFormatter.string(from: date)
     }
     
     private var secondsLampView: some View {
