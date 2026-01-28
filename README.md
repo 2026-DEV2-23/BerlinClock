@@ -10,7 +10,7 @@ Commissioned by the **Senate of Berlin** and designed by **Dieter Binninger**, t
 
 This characteristic clock tells the time using a series of illuminated coloured blocks and it is read from top to bottom.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Berlin-Uhr-1650-1705.gif" alt="Berlin clock GIF image">
+<img width="302" height="452" alt="berlinClockImage" src="https://github.com/user-attachments/assets/c6f24a76-031f-4c6c-bfae-74bb668f352a" />
 
 ## 🧠 How the Berlin Clock Works
 - **Seconds Lamp**: The circular light at the top On (Red color) → Even seconds and Off → Odd seconds
