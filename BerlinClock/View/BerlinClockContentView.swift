@@ -16,6 +16,13 @@ struct BerlinClockContentView: View {
     
     @State private var timeString = ""
     
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
     var body: some View {
         Group {
             if let error = viewModel.error {
@@ -47,7 +54,7 @@ struct BerlinClockContentView: View {
             Color.clear
                 .onChange(of: context.date) { _, newDate in
                     viewModel.updateBerlinClockLamp(date: newDate)
-                    convertDateToTimeIn24Format(date: newDate)
+                    timeString = Self.dateFormatter.string(from: newDate)
                 }
         }
     }
@@ -68,14 +75,6 @@ struct BerlinClockContentView: View {
             .font(.largeTitle)
             .foregroundStyle(.black)
             .bold()
-    }
-    
-    private func convertDateToTimeIn24Format(date: Date) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = .current
-        timeString = dateFormatter.string(from: date)
     }
     
     private var secondsLampView: some View {
