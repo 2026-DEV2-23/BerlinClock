@@ -2,7 +2,7 @@ import SwiftUI
 
 @Observable
 class BerlinClockViewModel {
-    private(set) var berlinClockLamp: BerlinClockLamp = BerlinClockLamp.empty
+    @ObservationIgnored private(set) var berlinClockLamp: BerlinClockLamp = BerlinClockLamp.empty
     private let timeProviderProtocol: DigitalTimeProviderProtocol
     private let engineProtocol: BerlinClockEngineProtocol
     private(set) var error: Error?
