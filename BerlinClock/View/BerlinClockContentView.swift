@@ -27,9 +27,6 @@ struct BerlinClockContentView: View {
         Group {
             if let error = viewModel.error {
                 errorView(error: error)
-                    .onAppear {
-                        isTimeLineViewPaused = true
-                    }
             } else {
                 clockStack
             }
@@ -44,9 +41,15 @@ struct BerlinClockContentView: View {
         ContentUnavailableView {
             Label("Clock Error", systemImage: "exclamationmark.triangle.fill")
         } description: {
-            Text(error.localizedDescription)
+            let errorMessage = (error as? TimeValidationError)?.localizedDescription
+            ?? error.localizedDescription
+            Text(errorMessage)
+                .font(.subheadline)
         }
         .foregroundStyle(Color(.systemRed))
+        .onAppear {
+            isTimeLineViewPaused = true
+        }
     }
      
     private var timeLineView: some View {
