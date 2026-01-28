@@ -2,7 +2,7 @@ import SwiftUI
 
 @Observable
 class BerlinClockViewModel {
-    @ObservationIgnored private(set) var berlinClockLamp: BerlinClockLamp = BerlinClockLamp.empty
+    private(set) var berlinClockLamp: BerlinClockLamp = BerlinClockLamp.empty
     private let timeProviderProtocol: DigitalTimeProviderProtocol
     private let engineProtocol: BerlinClockEngineProtocol
     private(set) var error: Error?
@@ -16,7 +16,6 @@ class BerlinClockViewModel {
         do {
             let time = try timeProviderProtocol.getDigitalTime(from: date)
             berlinClockLamp = engineProtocol.convertDigitalTimeToLamp(time: time)
-            error = nil
         } catch {
             self.error = error
         }
