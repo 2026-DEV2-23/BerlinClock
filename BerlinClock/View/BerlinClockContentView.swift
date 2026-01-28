@@ -85,7 +85,7 @@ struct BerlinClockContentView: View {
             .stroke(strokeColor, lineWidth: strokeWidth)
             .background {
                 Circle()
-                    .fill(viewModel.berlinClockLamp.secondsLamp == .red ? .red : .clear)
+                    .fill(viewModel.berlinClockLamp.secondsLamp.color)
             }
             .frame(width: widthOfCircle)
     }
