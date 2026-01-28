@@ -132,18 +132,8 @@ git clone https://github.com/2026-DEV2-23/BerlinClock.git
 
 ## 📖 References
 
-- 🔗 [Wikipedia: Mengenlehreuhr (Berlin Clock) – English](https://en.wikipedia.org/wiki/Mengenlehreuhr)  
-  Overview, history, and how the Berlin Clock works.
-
-- 🔗 [Wikipedia: Berlin-Uhr – German](https://de.wikipedia.org/wiki/Berlin-Uhr)  
-  Original German article with historical and technical context.
-
-- 📚 [Atlas Obscura: Mengenlehreuhr](https://www.atlasobscura.com/places/mengenlehreuhr)  
-  History, design, origin, and cultural significance of the clock.
-
 - 🧪 [Berlin Clock Kata – Agile Katas](http://agilekatas.co.uk/katas/BerlinClock-Kata)  
   Popular programming kata for practicing TDD and clean architecture.
-
 
 
 ## 📄 License
