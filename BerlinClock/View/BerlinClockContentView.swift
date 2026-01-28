@@ -11,20 +11,52 @@ struct BerlinClockContentView: View {
     
     let viewModel: BerlinClockViewModel
     
+    // Tracks the pause state
+    @State private var isTimeLineViewPaused = false
+    
     var body: some View {
-        TimelineView(.periodic(from: .now, by: 1)) { context in
-            VStack(spacing: 20) {
-                secondsLampView
-                lampView(lamps: viewModel.berlinClockLamp.fiveHoursLamp)
-                lampView(lamps: viewModel.berlinClockLamp.oneHourLamp)
-                lampView(lamps: viewModel.berlinClockLamp.fiveMinutesLamp)
-                lampView(lamps: viewModel.berlinClockLamp.oneMinuteLamp)
-            }
-            .onChange(of: context.date) { _, newDate in
-                viewModel.updateBerlinClockLamp(date: newDate)
+        Group {
+            if let error = viewModel.error {
+                errorView(error: error)
+                    .onAppear {
+                        isTimeLineViewPaused = true
+                    }
+            } else {
+                clockStack
             }
         }
-        .padding()
+        .background {
+            timeLineView
+        }
+        .padding(20)
+    }
+    
+    private func errorView(error: Error) -> some View {
+        ContentUnavailableView {
+            Label("Clock Error", systemImage: "exclamationmark.triangle.fill")
+        } description: {
+            Text(error.localizedDescription)
+        }
+        .foregroundStyle(.red)
+    }
+     
+    private var timeLineView: some View {
+        TimelineView(.animation(minimumInterval: 1.0, paused: isTimeLineViewPaused)) { context in
+            Color.clear
+                .onChange(of: context.date) { _, newDate in
+                    viewModel.updateBerlinClockLamp(date: newDate)
+                }
+        }
+    }
+    
+    private var clockStack: some View {
+        VStack(spacing: 20) {
+            secondsLampView
+            lampView(lamps: viewModel.berlinClockLamp.fiveHoursLamp)
+            lampView(lamps: viewModel.berlinClockLamp.oneHourLamp)
+            lampView(lamps: viewModel.berlinClockLamp.fiveMinutesLamp)
+            lampView(lamps: viewModel.berlinClockLamp.oneMinuteLamp)
+        }
     }
     
     private var secondsLampView: some View {
