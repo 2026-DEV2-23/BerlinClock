@@ -1,6 +1,6 @@
 # ⏱️ Berlin Clock (Mengenlehreuhr) -- SwiftUI
 
-The **Mengenlehreuhr** (Berlin Clock) implemented in SwiftUI.
+A modern SwiftUI implementation of the iconic Mengenlehreuhr (Berlin Clock), built with Swift 6, MVVM, and Test‑Driven Development.
 
 ## 📖 About
 
