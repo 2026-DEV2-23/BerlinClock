@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BerlinClockContentView: View {
     
-    private let strokeColor: Color = .gray
+    private let strokeColor: Color = Color(.systemGray)
     private let strokeWidth: CGFloat = 5
     private let cornerRadiusRectangle: CGFloat = 5
     private let hStackRectangleSpacing: CGFloat = 15
@@ -46,7 +46,7 @@ struct BerlinClockContentView: View {
         } description: {
             Text(error.localizedDescription)
         }
-        .foregroundStyle(.red)
+        .foregroundStyle(Color(.systemRed))
     }
      
     private var timeLineView: some View {
@@ -73,7 +73,7 @@ struct BerlinClockContentView: View {
     private var displayTime: some View {
         Text(timeString)
             .font(.largeTitle)
-            .foregroundStyle(.black)
+            .foregroundStyle(.primary) 
             .bold()
     }
     
@@ -106,8 +106,8 @@ struct BerlinClockContentView: View {
 private extension LampState {
     var color: Color {
         switch self {
-        case .red: .red
-        case .yellow: .yellow
+        case .red: Color(.systemRed)
+        case .yellow: Color(.systemYellow)
         case .off: .clear
         }
     }
